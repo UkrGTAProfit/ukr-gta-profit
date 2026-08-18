@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b10">
+<title>Ukr GTA Profit — Premium</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b10;color:#f5f7fb;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.app{max-width:900px;margin:auto;padding:18px 14px 70px}
+h1{font-size:28px;margin:4px 0}.sub{color:#8995a5;margin-bottom:18px}
+.card{background:#10161f;border:1px solid #263241;border-radius:18px;padding:16px;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{padding:15px;background:#0b1017;border:1px solid #263241;border-radius:15px}
+.small{font-size:12px;color:#8995a5}.big{font-size:22px;font-weight:800;margin-top:5px}
+.green{color:#32df91}.red{color:#ff6475}.gold{color:#ffd05a}
+.row{display:flex;gap:10px;margin:10px 0}.row>*{flex:1}
+input,select,button{font:inherit}
+input,select{width:100%;padding:13px;border-radius:12px;border:1px solid #2b3949;background:#0a0f16;color:#fff}
+button{padding:13px;border:0;border-radius:12px;font-weight:800}
+.primary{background:#3d82f6;color:white;width:100%}
+.secondary{background:#1b2633;color:white}
+.tabs{display:flex;gap:8px;margin:12px 0}.tabs button{flex:1;background:#111923;color:#dce5ef;border:1px solid #263241}.tabs .active{background:#3d82f6;color:white}
+.item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:12px;border-bottom:1px solid #263241}
+.amount{font-weight:800}.meta{font-size:12px;color:#8995a5;margin-top:3px}
+.delete{background:none;color:#8995a5;font-size:22px;padding:3px}
+.preview{margin-top:10px}.preview img{max-width:100%;max-height:280px;border-radius:14px;border:1px solid #2b3949;display:block}
+.photo-btn{display:block;text-align:center;background:#3d82f6;color:white;padding:14px;border-radius:12px;font-weight:800;cursor:pointer}
+.photo-btn input{display:none}
+.bar{height:12px;background:#080c12;border:1px solid #263241;border-radius:20px;overflow:hidden}.fill{height:100%;background:#32df91;width:0}
+.empty{text-align:center;color:#8995a5;padding:20px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<h1>💎 Ukr GTA Profit <span style="color:#70a5ff">PREMIUM</span></h1>
+<div class="sub">Калькулятор доходів, витрат і податків</div>
+
+<div class="grid">
+<div class="stat"><div class="small">ДОХОДИ</div><div id="incomeTotal" class="big green">0 ₴</div></div>
+<div class="stat"><div class="small">ВИТРАТИ</div><div id="expenseTotal" class="big red">0 ₴</div></div>
+<div class="stat"><div class="small">ПОДАТОК</div><div id="taxTotal" class="big red">0 ₴</div></div>
+<div class="stat"><div class="small">ЧИСТИЙ ПРИБУТОК</div><div id="profitTotal" class="big gold">0 ₴</div></div>
+</div>
+
+<div class="tabs">
+<button id="incomeTab" class="active" onclick="setType('income')">➕ Дохід</button>
+<button id="expenseTab" onclick="setType('expense')">➖ Витрата</button>
+</div>
+
+<div class="card">
+<h2 id="formTitle">Додати дохід</h2>
+<div class="row">
+<input id="amount" type="number" inputmode="decimal" placeholder="Сума ₴">
+<select id="category"></select>
+</div>
+<div class="row">
+<input id="note" placeholder="Назва / опис">
+<input id="hours" type="number" step="0.1" min="0" placeholder="Годин">
+</div>
+<button class="primary" onclick="addOperation()">Додати операцію</button>
+</div>
+
+<div class="card">
+<h2>🧾 Податки</h2>
+<div class="row">
+<input id="taxRate" type="number" min="0" max="100" step="0.1" placeholder="Ставка податку, %">
+<button class="secondary" onclick="saveTax()">Зберегти ставку</button>
+</div>
+<div id="taxInfo"></div>
+<button class="secondary" style="width:100%;margin-top:10px" onclick="addTaxExpense()">Додати податок як витрату</button>
+
+<div style="margin-top:16px">
+<b>📷 Фото податку</b>
+<div class="small" style="margin:6px 0 10px">Вибери фото прямо з галереї.</div>
+<label class="photo-btn">
+📷 Вибрати фото з галереї
+<input id="taxPhoto" type="file" accept="image/*">
+</label>
+<div id="taxPreview" class="preview"></div>
+<button class="secondary" style="width:100%;margin-top:10px" onclick="removeTaxPhoto()">Видалити фото</button>
+</div>
+</div>
+
+
+
+<div class="card">
+<h2>🧾 Податок зі скріншота</h2>
+<div class="small" style="margin-bottom:10px">
+Завантаж скрін із доходом. Бот розпізнає суму, а податок по ставці порахується автоматично.
+</div>
+<label class="photo-btn">
+📷 Вибрати скрін доходу
+<input id="taxOcrPhoto" type="file" accept="image/*">
+</label>
+<div id="taxOcrPreview" class="preview"></div>
+<div id="taxOcrStatus" class="small" style="margin-top:10px"></div>
+<div id="taxOcrValues" style="margin-top:10px"></div>
+<div id="taxCalcBox" style="margin-top:10px"></div>
+</div>
+
+<div class="card">
+<h2>🤖 Рахунок зі скріншота</h2>
+<div class="small" style="margin-bottom:10px">
+Завантаж скрін — застосунок спробує розпізнати суму та назву.
+</div>
+<label class="photo-btn">
+📷 Вибрати скрін з галереї
+<input id="ocrPhoto" type="file" accept="image/*">
+</label>
+<div id="ocrPreview" class="preview"></div>
+<div id="ocrStatus" class="small" style="margin-top:10px"></div>
+<div id="ocrResult" style="margin-top:10px"></div>
+</div>
+
+<div class="card">
+<h2>📁 Фото документів</h2>
+<div class="row">
+<input id="docName" placeholder="Назва документа">
+<input id="docNote" placeholder="Нотатка">
+</div>
+<label class="photo-btn">
+📷 Додати фото з галереї
+<input id="docPhoto" type="file" accept="image/*">
+</label>
+<button class="primary" style="margin-top:10px" onclick="addDocument()">Зберегти документ</button>
+<div id="documents"></div>
+</div>
+
+<div class="card">
+<h2>🎯 Фінансова ціль</h2>
+<div class="row">
+<input id="goal" type="number" min="0" placeholder="Ціль ₴">
+<button class="secondary" onclick="saveGoal()">Зберегти</button>
+</div>
+<div id="goalText" class="small"></div>
+<div class="bar"><div id="goalFill" class="fill"></div></div>
+</div>
+
+<div class="card">
+<h2>📊 Статистика</h2>
+<div id="stats"></div>
+</div>
+
+<div class="card">
+<h2>📋 Історія</h2>
+<div class="row">
+<button class="secondary" onclick="exportData()">📤 Експорт</button>
+<button class="secondary" onclick="document.getElementById('importFile').click()">📥 Імпорт</button>
+<button class="secondary" onclick="clearAll()">🗑 Очистити</button>
+</div>
+<input id="importFile" type="file" accept=".json" style="display:none">
+<div id="history"></div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script>
+const DATA_KEY="ukr-gta-profit-data-v1";
+const DOC_KEY="ukr-gta-profit-docs-v1";
+let operations=JSON.parse(localStorage.getItem(DATA_KEY)||"[]");
+let documents=JSON.parse(localStorage.getItem(DOC_KEY)||"[]");
+let currentType="income";
+let tax=Number(localStorage.getItem("ukr-gta-tax")||5);
+let goalValue=Number(localStorage.getItem("ukr-gta-goal")||0);
+
+const categories={
+ income:["Робота","Транспорт","Бізнес","Продаж","Ферма","Місії","Інше"],
+ expense:["Пальне","Ремонт","Оренда","Покупка","Податки","Штрафи","Інше"]
+};
+
+const money=n=>new Intl.NumberFormat("uk-UA",{maximumFractionDigits:2}).format(n)+" ₴";
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+
+function save(){localStorage.setItem(DATA_KEY,JSON.stringify(operations))}
+function setType(type){
+ currentType=type;
+ incomeTab.classList.toggle("active",type==="income");
+ expenseTab.classList.toggle("active",type==="expense");
+ formTitle.textContent=type==="income"?"Додати дохід":"Додати витрату";
+ category.innerHTML=categories[type].map(x=>`<option>${esc(x)}</option>`).join("");
+}
+function addOperation(){
+ const value=Number(amount.value);
+ if(!value||value<=0)return alert("Введи суму.");
+ operations.unshift({
+  id:Date.now(),type:currentType,amount:value,
+  category:category.value,note:note.value.trim()||category.value,
+  hours:Number(hours.value)||0,date:Date.now()
+ });
+ save();amount.value="";note.value="";hours.value="";render();
+}
+function totals(){
+ const income=operations.filter(x=>x.type==="income").reduce((s,x)=>s+x.amount,0);
+ const expense=operations.filter(x=>x.type==="expense").reduce((s,x)=>s+x.amount,0);
+ const taxValue=income*tax/100;
+ return {income,expense,taxValue,profit:income-expense-taxValue};
+}
+function render(){
+ const t=totals();
+ incomeTotal.textContent=money(t.income);
+ expenseTotal.textContent=money(t.expense);
+ taxTotal.textContent=money(t.taxValue);
+ profitTotal.textContent=money(t.profit);
+ taxRate.value=tax;
+ taxInfo.innerHTML=
+ `<div class="item"><div>Ставка</div><b>${tax.toFixed(1)}%</b><span></span></div>
+ <div class="item"><div>Дохід</div><b>${money(t.income)}</b><span></span></div>
+ <div class="item"><div>Податок</div><b class="red">${money(t.taxValue)}</b><span></span></div>`;
+ const hours=operations.reduce((s,x)=>s+(Number(x.hours)||0),0);
+ stats.innerHTML=
+ `<div class="item"><div>Операцій</div><b>${operations.length}</b><span></span></div>
+ <div class="item"><div>Всього годин</div><b>${hours.toFixed(1)}</b><span></span></div>
+ <div class="item"><div>Прибуток за годину</div><b>${money(hours?t.profit/hours:0)}</b><span></span></div>`;
+ if(goalValue>0){
+  const pct=Math.max(0,Math.min(100,t.profit/goalValue*100));
+  goalText.textContent=`${money(t.profit)} з ${money(goalValue)} — ${pct.toFixed(1)}%`;
+  goalFill.style.width=pct+"%";
+ }else{goalText.textContent="Ціль не встановлена";goalFill.style.width="0"}
+ history.innerHTML=operations.length?operations.map(x=>
+ `<div class="item">
+ <div><b>${esc(x.note)}</b><div class="meta">${esc(x.category)} • ${new Date(x.date).toLocaleString("uk-UA")}${x.hours?" • "+x.hours+" год":""}</div></div>
+ <div class="${x.type==="income"?"green":"red"} amount">${x.type==="income"?"+":"−"}${money(x.amount)}</div>
+ <button class="delete" onclick="removeOperation(${x.id})">×</button>
+ </div>`).join(""):"<div class='empty'>Історія порожня.</div>";
+ renderDocuments();
+}
+function saveTax(){
+ tax=Math.max(0,Math.min(100,Number(taxRate.value)||0));
+ localStorage.setItem("ukr-gta-tax",tax);render();
+}
+function addTaxExpense(){
+ const t=totals().taxValue;
+ if(t<=0)return alert("Податок зараз дорівнює 0.");
+ operations.unshift({id:Date.now(),type:"expense",amount:t,category:"Податки",note:"Податок "+tax+"%",hours:0,date:Date.now()});
+ save();render();
+}
+function saveGoal(){
+ goalValue=Number(goal.value)||0;
+ localStorage.setItem("ukr-gta-goal",goalValue);render();
+}
+function removeOperation(id){
+ operations=operations.filter(x=>x.id!==id);save();render();
+}
+function clearAll(){
+ if(confirm("Видалити всю історію?")){operations=[];save();render();}
+}
+function exportData(){
+ const backup={version:1,tax,goal:goalValue,operations};
+ const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+ a.download="ukr-gta-profit-backup.json";a.click();URL.revokeObjectURL(a.href);
+}
+importFile.onchange=e=>{
+ const file=e.target.files[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const x=JSON.parse(reader.result);
+   operations=Array.isArray(x)?x:(x.operations||[]);
+   if(x.tax!==undefined)tax=Number(x.tax);
+   if(x.goal!==undefined)goalValue=Number(x.goal);
+   save();localStorage.setItem("ukr-gta-tax",tax);localStorage.setItem("ukr-gta-goal",goalValue);render();
+   alert("Дані імпортовано.");
+  }catch{alert("Не вдалося прочитати файл.");}
+ };
+ reader.readAsText(file);
+};
+
+taxPhoto.onchange=e=>{
+ const file=e.target.files[0];
+ if(!file)return;
+ if(!file.type.startsWith("image/"))return alert("Вибери зображення.");
+ const reader=new FileReader();
+ reader.onload=()=>{
+  localStorage.setItem("ukr-gta-tax-photo",reader.result);
+  showTaxPhoto();
+ };
+ reader.readAsDataURL(file);
+};
+function showTaxPhoto(){
+ const photo=localStorage.getItem("ukr-gta-tax-photo");
+ taxPreview.innerHTML=photo?`<img src="${photo}" alt="Фото податку">`:"";
+}
+function removeTaxPhoto(){
+ localStorage.removeItem("ukr-gta-tax-photo");
+ taxPhoto.value="";showTaxPhoto();
+}
+
+function addDocument(){
+ const file=docPhoto.files[0];
+ const name=docName.value.trim()||"Документ";
+ const note=docNote.value.trim();
+ if(!file)return alert("Вибери фото з галереї.");
+ const reader=new FileReader();
+ reader.onload=()=>{
+  documents.unshift({id:Date.now(),name,note,photo:reader.result,date:Date.now()});
+  localStorage.setItem(DOC_KEY,JSON.stringify(documents));
+  docName.value="";docNote.value="";docPhoto.value="";
+  renderDocuments();
+ };
+ reader.readAsDataURL(file);
+}
+function renderDocuments(){
+ documents.innerHTML="";
+ const box=document.getElementById("documents");
+ if(!documents.length){box.innerHTML="<div class='empty'>Документів ще немає.</div>";return}
+ box.innerHTML=documents.map(d=>
+ `<div class="card" style="margin-top:10px">
+ <b>${esc(d.name)}</b>
+ <div class="meta">${esc(d.note)} • ${new Date(d.date).toLocaleString("uk-UA")}</div>
+ <img src="${d.photo}" style="width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin-top:10px">
+ <button class="secondary" style="margin-top:10px;width:100%" onclick="deleteDocument(${d.id})">Видалити</button>
+ </div>`).join("");
+}
+function deleteDocument(id){
+ documents=documents.filter(x=>x.id!==id);
+ localStorage.setItem(DOC_KEY,JSON.stringify(documents));renderDocuments();
+}
+
+
+ocrPhoto.onchange = async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const previewUrl = URL.createObjectURL(file);
+  ocrPreview.innerHTML = `<img src="${previewUrl}" alt="Скріншот">`;
+  ocrStatus.textContent = "⏳ Розпізнаю текст зі скріншота...";
+  ocrResult.innerHTML = "";
+
+  try {
+    const { data } = await Tesseract.recognize(file, "ukr+eng", {
+      logger: m => {
+        if (m.status === "recognizing text" && m.progress != null) {
+          ocrStatus.textContent =
+            `⏳ Розпізнавання: ${Math.round(m.progress * 100)}%`;
+        }
+      }
+    });
+
+    const text = data.text || "";
+    const numbers = extractMoneyValues(text);
+
+    if (!numbers.length) {
+      ocrStatus.textContent = "❌ Суму не знайшов. Спробуй чіткіший скрін.";
+      ocrResult.innerHTML =
+        `<div class="small">Розпізнаний текст:<br><pre style="white-space:pre-wrap">${esc(text.slice(0,2000))}</pre></div>`;
+      return;
+    }
+
+    ocrStatus.textContent = "✅ Готово. Знайдено суми:";
+    ocrResult.innerHTML = `
+      <div class="item">
+        <div><b>Найбільша знайдена сума</b><div class="meta">${numbers.length} значень</div></div>
+        <b class="green">${money(Math.max(...numbers))}</b>
+        <span></span>
+      </div>
+      <div class="small" style="margin:10px 0 6px">Вибери суму:</div>
+      ${numbers.slice(0,12).map((n,i)=>`
+        <button class="secondary" style="margin:4px" onclick="useOcrAmount(${n})">
+          ${money(n)}
+        </button>`).join("")}
+      <div class="small" style="margin-top:8px">Після вибору сума потрапить у поле операції.</div>
+    `;
+  } catch (err) {
+    console.error(err);
+    ocrStatus.textContent = "❌ Не вдалося розпізнати скрін.";
+  }
+};
+
+function extractMoneyValues(text) {
+  // Supports Ukrainian GTA-style values such as 300к, 1.5м, 250 000, 250,000 and 250000.
+  const found = [];
+  const normalized = text
+    .replace(/\u00a0/g, " ")
+    .replace(/[₴$€]/g, "")
+    .replace(/(\d)[ ]+(\d{3})(?!\d)/g, "$1$2");
+
+  const re = /(\d+(?:[.,]\d+)?)\s*(к|k|тис|т|м|млн)?/gi;
+  let m;
+  while ((m = re.exec(normalized)) !== null) {
+    let n = parseFloat(m[1].replace(",", "."));
+    const unit = (m[2] || "").toLowerCase();
+
+    if (unit === "к" || unit === "k" || unit === "тис" || unit === "т") n *= 1000;
+    if (unit === "м" || unit === "млн") n *= 1000000;
+
+    if (n >= 10 && n <= 1000000000) found.push(Math.round(n));
+  }
+
+  // Also catch numbers written with thousands separators.
+  const separated = normalized.match(/\b\d{1,3}(?:[ ,]\d{3})+\b/g) || [];
+  for (const s of separated) {
+    const n = Number(s.replace(/[ ,]/g, ""));
+    if (n >= 10 && n <= 1000000000) found.push(n);
+  }
+
+  return [...new Set(found)];
+}
+
+function useOcrAmount(n) {
+  amount.value = n;
+  note.value = "Зі скріншота";
+  document.querySelector(".tabs").scrollIntoView({behavior:"smooth", block:"start"});
+  ocrStatus.textContent = `✅ Сума ${money(n)} вставлена у форму.`;
+}
+
+
+taxOcrPhoto.onchange = async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  taxOcrPreview.innerHTML = `<img src="${URL.createObjectURL(file)}" alt="Скрін доходу">`;
+  taxOcrStatus.textContent = "⏳ Розпізнаю суму...";
+  taxOcrValues.innerHTML = "";
+  taxCalcBox.innerHTML = "";
+
+  try {
+    const { data } = await Tesseract.recognize(file, "ukr+eng", {
+      logger: m => {
+        if (m.status === "recognizing text" && m.progress != null) {
+          taxOcrStatus.textContent = `⏳ Розпізнавання: ${Math.round(m.progress*100)}%`;
+        }
+      }
+    });
+
+    const text = data.text || "";
+    const values = extractMoneyValues(text);
+
+    if (!values.length) {
+      taxOcrStatus.textContent = "❌ Не знайшов суму. Спробуй чіткіший скрін.";
+      return;
+    }
+
+    taxOcrStatus.textContent = "✅ Суму знайдено. Вибери потрібну:";
+    taxOcrValues.innerHTML = values.slice(0,12).map(v =>
+      `<button class="secondary" style="margin:4px" onclick="calculateTaxFromScreenshot(${v})">${money(v)}</button>`
+    ).join("");
+
+    // If there's only one amount, calculate immediately.
+    if (values.length === 1) calculateTaxFromScreenshot(values[0]);
+
+  } catch (err) {
+    console.error(err);
+    taxOcrStatus.textContent = "❌ Не вдалося розпізнати скрін.";
+  }
+};
+
+function calculateTaxFromScreenshot(income) {
+  const rate = Math.max(0, Math.min(100, Number(taxRate.value) || 0));
+  const taxAmount = income * rate / 100;
+  const afterTax = income - taxAmount;
+
+  taxCalcBox.innerHTML = `
+    <div class="item">
+      <div><b>Дохід зі скріншота</b><div class="meta">Ставка: ${rate.toFixed(1)}%</div></div>
+      <b class="green">${money(income)}</b><span></span>
+    </div>
+    <div class="item">
+      <div><b>🧾 Податок</b></div>
+      <b class="red">${money(taxAmount)}</b><span></span>
+    </div>
+    <div class="item">
+      <div><b>💰 Після податку</b></div>
+      <b class="gold">${money(afterTax)}</b><span></span>
+    </div>
+    <button class="primary" style="margin-top:10px" onclick="useScreenshotIncome(${income})">
+      ➕ Додати цей дохід
+    </button>
+  `;
+}
+
+function useScreenshotIncome(income) {
+  setType("income");
+  amount.value = income;
+  note.value = "Дохід зі скріншота";
+  document.querySelector(".tabs").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+setType("income");
+showTaxPhoto();
+render();
+</script>
+</body>
+</html>
