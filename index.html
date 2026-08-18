@@ -5,19 +5,22 @@
 <meta name="theme-color" content="#070a0f"><link rel="manifest" href="manifest.json">
 <title>Ukr GTA Profit 10.1</title>
 <style>
-:root{--bg:#070a0f;--card:#111820;--line:#273442;--text:#f7f9fc;--muted:#8d99aa;--blue:#4c8dff;--green:#35d98b;--red:#ff6070;--gold:#ffd166}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}.app{max-width:900px;margin:auto;padding:18px 15px 90px}
-.title{font-size:30px;font-weight:900}.sub{color:var(--muted);margin:4px 0 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}.wide{grid-column:1/-1}.label{font-size:12px;color:var(--muted)}.num{font-size:23px;font-weight:900;margin-top:5px}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
-.tabs{display:flex;gap:8px;margin:15px 0}.tab{flex:1;padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--card);color:var(--text);font-weight:800}.active{background:var(--blue);border-color:var(--blue)}
-.row{display:flex;gap:9px;margin:9px 0}.row>*{flex:1;min-width:0}input,select{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#0c1219;color:var(--text);font-size:16px}.primary,.secondary{border:0;border-radius:13px;font-weight:800}.primary{width:100%;padding:14px;background:var(--blue);color:#fff}.secondary{padding:11px;background:#18222d;color:#fff}
-.section{margin-top:18px}h2{font-size:20px;margin:0 0 10px}.statline{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}.statline:last-child{border:0}.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0}.name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:12px;color:var(--muted);margin-top:3px}.amount{font-weight:900;white-space:nowrap}.x{background:transparent;color:var(--muted);border:0;font-size:20px}
-.goalbar{height:12px;background:#0b1118;border-radius:20px;overflow:hidden;border:1px solid var(--line)}.goalfill{height:100%;background:var(--green);width:0}.taxbox{background:#0b1118;border:1px solid var(--line);border-radius:14px;padding:12px}.empty{text-align:center;color:var(--muted);padding:24px}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:25px}
+:root{--bg:#05070b;--panel:#0c1118;--panel2:#111923;--line:#1f2b38;--text:#f7f9fc;--muted:#8290a3;--blue:#4d8dff;--blue2:#7aaaff;--green:#34df91;--red:#ff5e70;--gold:#f7c75a;--shadow:0 18px 55px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:radial-gradient(circle at 50% -10%,#152744 0,#080b11 34%,#05070b 70%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif}
+.app{max-width:920px;margin:auto;padding:18px 16px 100px}.title{font-size:31px;letter-spacing:-.7px;font-weight:900}.title span{background:linear-gradient(90deg,#6aa0ff,#b6d0ff);-webkit-background-clip:text;background-clip:text;color:transparent}.sub{color:var(--muted);margin:5px 0 18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:linear-gradient(145deg,rgba(18,27,38,.96),rgba(9,14,20,.96));border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}.wide{grid-column:1/-1}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}.num{font-size:25px;font-weight:900;margin-top:7px;letter-spacing:-.4px}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+.tabs{display:flex;gap:8px;margin:16px 0}.tab{flex:1;padding:14px;border:1px solid var(--line);border-radius:15px;background:rgba(15,22,31,.9);color:var(--text);font-weight:850;box-shadow:0 8px 25px rgba(0,0,0,.2)}.active{background:linear-gradient(135deg,#4d8dff,#316de0);border-color:#669dff;box-shadow:0 10px 30px rgba(55,119,255,.25)}
+.row{display:flex;gap:9px;margin:10px 0}.row>*{flex:1;min-width:0}input,select{width:100%;padding:14px;border:1px solid #263442;border-radius:14px;background:#080d13;color:var(--text);font-size:16px;outline:none}input:focus,select:focus{border-color:#4d8dff;box-shadow:0 0 0 3px rgba(77,141,255,.12)}
+.primary,.secondary{border:0;border-radius:14px;font-weight:850}.primary{width:100%;padding:15px;background:linear-gradient(135deg,#5a97ff,#326fe5);color:#fff;box-shadow:0 10px 25px rgba(60,120,255,.2)}.secondary{padding:12px;background:#17222e;color:#f3f6fb}
+.section{margin-top:18px}h2{font-size:19px;letter-spacing:-.2px;margin:0 0 11px}.statline{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line)}.statline:last-child{border:0}.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:rgba(12,18,25,.9);border:1px solid var(--line);border-radius:16px;padding:13px;margin:8px 0}.name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:12px;color:var(--muted);margin-top:4px}.amount{font-weight:900;white-space:nowrap}.x{background:transparent;color:#667487;border:0;font-size:22px;padding:4px}
+.goalbar{height:12px;background:#080d13;border-radius:20px;overflow:hidden;border:1px solid var(--line)}.goalfill{height:100%;background:linear-gradient(90deg,#28cf82,#6df0ad);width:0;box-shadow:0 0 18px rgba(52,223,145,.4)}.taxbox{background:#080d13;border:1px solid var(--line);border-radius:16px;padding:13px}canvas{width:100%;height:220px;background:#080d13;border:1px solid var(--line);border-radius:16px}.empty{text-align:center;color:var(--muted);padding:25px}.footer{text-align:center;color:#657286;font-size:12px;margin-top:26px}
 @media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}.wide{grid-column:span 2}}@media(max-width:520px){.actions{grid-template-columns:1fr}.row{flex-direction:column}}
 </style></head>
 <body><div class="app">
-<div class="title">💰 Ukr GTA Profit <span style="color:#4c8dff">10.1</span></div>
-<div class="sub">Доходи • витрати • податки • чистий прибуток</div>
+<div class="title">💎 Ukr GTA Profit <span>10.3 PREMIUM</span></div>
+<div class="sub">Преміум панель фінансів для Ukr GTA</div>
 
 <div class="grid">
 <div class="card"><div class="label">Доходи</div><div id="inc" class="num green">0 ₴</div></div>
@@ -54,6 +57,15 @@
 
 <div class="section"><h2>📋 Історія</h2><div class="actions"><button class="secondary" onclick="exportData()">📤 Експорт</button><button class="secondary" onclick="document.getElementById('file').click()">📥 Імпорт</button><button class="secondary" onclick="clearAll()">🗑 Очистити</button></div>
 <input id="file" type="file" accept=".json" hidden><div id="list"></div></div>
+
+<div class="section card">
+<h2>📁 Мої документи</h2>
+<div class="sub" style="margin-bottom:10px">Локальні нотатки та фото. Не підключено до державних реєстрів.</div>
+<div class="row"><input id="docName" placeholder="Назва документа"><input id="docNote" placeholder="Нотатка"></div>
+<div class="row"><input id="docPhoto" type="file" accept="image/*" capture="environment"></div>
+<button class="primary" onclick="addDoc()">Додати документ</button>
+<div id="docsList" style="margin-top:10px"></div>
+</div>
 <div class="footer">Ukr GTA Profit 10.1</div></div>
 
 <script>
@@ -86,4 +98,26 @@ file.onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.
 function draw(d){let c=chart,ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);let v=[];for(let k=6;k>=0;k--){let day=new Date();day.setHours(0,0,0,0);day.setDate(day.getDate()-k);let a=day.getTime(),b=a+864e5,ii=d.filter(x=>x.type==='income'&&x.date>=a&&x.date<b).reduce((s,x)=>s+x.amount,0),ee=d.filter(x=>x.type==='expense'&&x.date>=a&&x.date<b).reduce((s,x)=>s+x.amount,0);v.push({ii,ee,l:day.getDate()+'.'+(day.getMonth()+1)})}let m=Math.max(1,...v.flatMap(x=>[x.ii,x.ee]));v.forEach((x,j)=>{let xx=40+j*(w-65)/7,ih=x.ii/m*145,eh=x.ee/m*145;ctx.fillStyle='#35d98b';ctx.fillRect(xx,h-35-ih,24,ih);ctx.fillStyle='#ff6070';ctx.fillRect(xx+28,h-35-eh,24,eh);ctx.fillStyle='#8d99aa';ctx.font='12px Arial';ctx.fillText(x.l,xx,h-12)})}
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 setType('income');showTaxPhoto();render();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+const DOC_KEY='ukr-gta-documents';
+let docs=JSON.parse(localStorage.getItem(DOC_KEY)||'[]');
+function addDoc(){
+ const name=document.getElementById('docName').value.trim();
+ const note=document.getElementById('docNote').value.trim();
+ const file=document.getElementById('docPhoto').files[0];
+ if(!name && !file){alert('Вкажи назву або додай фото');return}
+ const finish=(photo='')=>{
+  docs.unshift({id:Date.now(),name:name||'Документ',note,photo,date:new Date().toLocaleString('uk-UA')});
+  localStorage.setItem(DOC_KEY,JSON.stringify(docs));
+  document.getElementById('docName').value='';document.getElementById('docNote').value='';document.getElementById('docPhoto').value='';
+  renderDocs();
+ };
+ if(file){const r=new FileReader();r.onload=()=>finish(r.result);r.readAsDataURL(file)}else finish();
+}
+function delDoc(id){docs=docs.filter(x=>x.id!==id);localStorage.setItem(DOC_KEY,JSON.stringify(docs));renderDocs()}
+function renderDocs(){
+ const el=document.getElementById('docsList');
+ el.innerHTML=docs.length?docs.map(d=>`<div class="item"><div><div class="name">${esc(d.name)}</div><div class="meta">${esc(d.note)} ${d.date?'• '+d.date:''}</div>${d.photo?`<img src="${d.photo}" style="max-width:100%;max-height:180px;margin-top:8px;border-radius:12px;border:1px solid #273442">`:''}</div><button class="x" onclick="delDoc(${d.id})">×</button></div>`).join(''):'<div class="empty">Документів ще немає.</div>';
+}
+renderDocs();
 </script></body></html>
