@@ -1,26 +1,39 @@
-from pathlib import Path
-p=Path("/mnt/data/sw.js")
-p.write_text("""const CACHE_NAME = 'ukr-gta-profit-10.2';
+const CACHE_NAME = "ukr-gta-profit-v10.2";
 
-self.addEventListener('install', event => {
+const FILES_TO_CACHE = [
+  "./",
+  "./index.html",
+  "./manifest.json"
+];
+
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache =>
-      cache.addAll(['./', './index.html', './manifest.json'])
-    )
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(FILES_TO_CACHE);
+    })
   );
+
   self.skipWaiting();
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys
+          .filter((key) => key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      );
+    })
+  );
+
+  self.clients.claim();
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then(response =>
-      response || fetch(event.request)
-    )
+    caches.match(event.request).then((cachedResponse) => {
+      return cachedResponse || fetch(event.request);
+    })
   );
 });
-""", encoding="utf-8")
-print("Готово")
