@@ -1,52 +1,52 @@
-<!doctype html>
-<html lang="uk">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<link rel="manifest" href="./manifest.json">
-<title>Ukr GTA — Чистий дохід</title>
+<!doctype html><html lang="uk"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070a0f"><link rel="manifest" href="manifest.json"><title>Ukr GTA Profit 4.0</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#f8fafc}
-.wrap{max-width:700px;margin:auto;padding:20px 16px 40px}.title{font-size:28px;font-weight:800;margin:10px 0 4px}.sub{color:#94a3b8;margin-bottom:18px}
-.card{background:#1e293b;border:1px solid #334155;border-radius:18px;padding:16px;margin:12px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-label{display:block;font-size:13px;color:#cbd5e1;margin-bottom:6px}input,select{width:100%;padding:13px;border:1px solid #475569;border-radius:12px;background:#0f172a;color:white;font-size:16px}
-button{width:100%;padding:14px;border:0;border-radius:12px;background:#22c55e;color:#052e16;font-weight:800;font-size:16px;margin-top:12px}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.stat{padding:14px;border-radius:14px;background:#0f172a}.num{font-size:20px;font-weight:800;margin-top:5px}.green{color:#4ade80}.red{color:#fb7185}.blue{color:#60a5fa}
-.item{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #334155}.item:last-child{border:0}.small{font-size:13px;color:#94a3b8}.delete{width:auto;margin:0;padding:7px 10px;background:#334155;color:#f8fafc;font-weight:600}
-.empty{text-align:center;color:#94a3b8;padding:20px}.danger{background:#ef4444;color:white}
-@media(max-width:480px){.stats{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<div class="title">🚛 Ukr GTA — Чистий дохід</div>
-<div class="sub">Рахуй прибуток від бізнесу, роботи та транспорту</div>
-<div class="card"><div class="stats">
-<div class="stat"><div class="small">Доходи</div><div id="income" class="num green">0 $</div></div>
-<div class="stat"><div class="small">Витрати</div><div id="expense" class="num red">0 $</div></div>
-<div class="stat"><div class="small">Чистий дохід</div><div id="profit" class="num blue">0 $</div></div>
-</div></div>
-<div class="card">
+:root{--bg:#070a0f;--card:#111820;--line:#273442;--text:#f7f9fc;--muted:#8d99aa;--blue:#4c8dff;--green:#35d98b;--red:#ff6070;--gold:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}.app{max-width:850px;margin:auto;padding:18px 15px 90px}
+.title{font-size:30px;font-weight:900}.sub{color:var(--muted);margin:4px 0 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}.wide{grid-column:1/-1}.label{font-size:12px;color:var(--muted)}.num{font-size:23px;font-weight:900;margin-top:5px}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+.tabs{display:flex;gap:8px;margin:15px 0}.tab{flex:1;padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--card);color:var(--text);font-weight:800}.active{background:var(--blue);border-color:var(--blue)}
+.row{display:flex;gap:9px;margin:9px 0}.row>*{flex:1;min-width:0}input,select{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#0c1219;color:var(--text);font-size:16px}.primary,.secondary{border:0;border-radius:13px;font-weight:800}.primary{width:100%;padding:14px;background:var(--blue);color:white}.secondary{padding:11px;background:#18222d;color:white}.section{margin-top:18px}h2{font-size:20px;margin:0 0 10px}
+.item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0}.name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:12px;color:var(--muted);margin-top:3px}.amount{font-weight:900;white-space:nowrap}.x{background:transparent;color:var(--muted);border:0;font-size:20px}.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.statline{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}.statline:last-child{border:0}.empty{text-align:center;color:var(--muted);padding:24px}.badge{display:inline-block;padding:4px 8px;border-radius:9px;background:#18222d;color:#aeb9c8;font-size:11px}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:25px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}.wide{grid-column:span 2}}@media(max-width:520px){.actions{grid-template-columns:1fr}.row{flex-direction:column}}
+</style></head><body><div class="app">
+<div class="title">💰 Ukr GTA Profit <span style="color:#4c8dff">4.0</span></div><div class="sub">Прибуток • цілі • бюджет • статистика</div>
+
 <div class="grid">
-<div><label>Тип операції</label><select id="type"><option value="income">Дохід</option><option value="expense">Витрата</option></select></div>
-<div><label>Сума ($)</label><input id="amount" type="number" min="0" placeholder="150000"></div>
+<div class="card"><div class="label">Доходи</div><div id="inc" class="num green">0 ₴</div></div>
+<div class="card"><div class="label">Витрати</div><div id="exp" class="num red">0 ₴</div></div>
+<div class="card"><div class="label">Чистий прибуток</div><div id="profit" class="num gold">0 ₴</div></div>
+<div class="card"><div class="label">Прибуток / год</div><div id="rate" class="num">0 ₴</div></div>
 </div>
-<div style="margin-top:10px"><label>Назва</label><input id="name" placeholder="Напр. Доставка"></div>
-<button onclick="add()">Додати операцію</button>
-</div>
-<div class="card"><button onclick="clearAll()" class="danger">Очистити все</button></div>
-<div class="card"><h3 style="margin-top:0">📋 Історія</h3><div id="list"></div></div>
-</div>
+
+<div class="tabs"><button id="it" class="tab active" onclick="setType('income')">➕ Дохід</button><button id="et" class="tab" onclick="setType('expense')">➖ Витрата</button></div>
+<div class="card"><h2 id="formTitle">Додати дохід</h2>
+<div class="row"><input id="amount" type="number" inputmode="decimal" min="0" placeholder="Сума, ₴"><select id="cat"></select></div>
+<div class="row"><input id="note" placeholder="Назва операції"><input id="hours" type="number" min="0" step=".1" placeholder="Годин"></div>
+<button class="primary" onclick="add()">Додати операцію</button></div>
+
+<div class="section card"><h2>🎯 Мета</h2><div class="row"><input id="goal" type="number" placeholder="Ціль, ₴"><button class="secondary" onclick="saveGoal()">Зберегти</button></div><div id="goalText"></div></div>
+
+<div class="section card"><h2>📊 Статистика</h2><div class="row"><select id="period" onchange="render()"><option value="all">Весь час</option><option value="today">Сьогодні</option><option value="week">7 днів</option><option value="month">30 днів</option></select></div><div id="summary"></div><canvas id="chart" width="800" height="220" style="width:100%;background:#0b1118;border:1px solid #273442;border-radius:14px"></canvas></div>
+
+<div class="section"><h2>📋 Історія</h2><div class="actions"><button class="secondary" onclick="exportData()">📤 Експорт</button><button class="secondary" onclick="document.getElementById('file').click()">📥 Імпорт</button><button class="secondary" onclick="clearAll()">🗑 Очистити</button></div><input id="file" type="file" accept=".json" hidden><div id="list"></div></div>
+<div class="footer">Ukr GTA Profit 4.0 • дані зберігаються на пристрої</div></div>
+
 <script>
-const KEY="ukr-gta-profit-v1";let data=JSON.parse(localStorage.getItem(KEY)||"[]");
-const money=n=>new Intl.NumberFormat("uk-UA").format(n)+" $";
-function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
-function add(){const type=document.getElementById("type").value,amount=Number(document.getElementById("amount").value),name=document.getElementById("name").value.trim()||(type==="income"?"Дохід":"Витрата");if(!amount||amount<0)return alert("Введи суму");data.unshift({id:Date.now(),type,amount,name,date:new Date().toLocaleString("uk-UA")});document.getElementById("amount").value="";document.getElementById("name").value="";save()}
-function del(id){data=data.filter(x=>x.id!==id);save()}
-function clearAll(){if(confirm("Видалити всю історію?")){data=[];save()}}
-function render(){let inc=data.filter(x=>x.type==="income").reduce((s,x)=>s+x.amount,0),exp=data.filter(x=>x.type==="expense").reduce((s,x)=>s+x.amount,0);document.getElementById("income").textContent=money(inc);document.getElementById("expense").textContent=money(exp);document.getElementById("profit").textContent=money(inc-exp);document.getElementById("list").innerHTML=data.length?data.map(x=>`<div class="item"><div><b>${escapeHtml(x.name)}</b><div class="small">${x.date}</div></div><div style="text-align:right"><b class="${x.type==="income"?"green":"red"}">${x.type==="income"?"+":"-"}${money(x.amount)}</b><br><button class="delete" onclick="del(${x.id})">Видалити</button></div></div>`).join(""):'<div class="empty">Операцій ще немає</div>'}
-function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-render();if("serviceWorker"in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
-</script>
-</body></html>
+const KEY='ukr-gta-profit-4';let data=JSON.parse(localStorage.getItem(KEY)||'[]'),type='income',goalValue=Number(localStorage.getItem('gtaGoal')||0);
+const cats={income:['Робота','Транспорт','Бізнес','Продаж','Ферма','Інше'],expense:['Пальне','Ремонт','Оренда','Покупка','Податки','Інше']};
+const money=n=>new Intl.NumberFormat('uk-UA',{maximumFractionDigits:2}).format(n)+' ₴';
+function setType(t){type=t;it.classList.toggle('active',t==='income');et.classList.toggle('active',t==='expense');formTitle.textContent=t==='income'?'Додати дохід':'Додати витрату';cat.innerHTML=cats[t].map(x=>'<option>'+x+'</option>').join('')}
+function add(){let a=Number(amount.value),h=Number(hours.value)||0;if(a<=0)return alert('Введи суму');data.unshift({id:Date.now(),type,amount:a,cat:cat.value,note:note.value.trim()||cat.value,hours:h,date:Date.now()});save();amount.value='';hours.value='';note.value='';render()}
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function filtered(){let p=period.value,n=Date.now(),ms=p==='today'?864e5:p==='week'?6048e5:p==='month'?2592e6:Infinity;return data.filter(x=>n-x.date<ms)}
+function render(){let d=filtered(),i=d.filter(x=>x.type==='income').reduce((s,x)=>s+x.amount,0),e=d.filter(x=>x.type==='expense').reduce((s,x)=>s+x.amount,0),h=d.reduce((s,x)=>s+x.hours,0),p=i-e;inc.textContent=money(i);exp.textContent=money(e);profit.textContent=money(p);rate.textContent=money(h?p/h:0);let total=goalValue?Math.max(0,Math.min(100,p/goalValue*100)):0;goalText.innerHTML=goalValue?'<div class="statline"><span>Ціль</span><b>'+money(goalValue)+'</b></div><div class="statline"><span>Виконано</span><b>'+total.toFixed(1)+'%</b></div><div class="statline"><span>Залишилось</span><b>'+money(Math.max(0,goalValue-p))+'</b></div>':'<span class="badge">Ціль ще не встановлена</span>';summary.innerHTML='<div class="statline"><span>Операцій</span><b>'+d.length+'</b></div><div class="statline"><span>Годин</span><b>'+h.toFixed(1)+'</b></div><div class="statline"><span>Середній дохід / год</span><b>'+money(h?i/h:0)+'</b></div>';list.innerHTML=d.length?d.map(x=>'<div class="item"><div><div class="name">'+esc(x.note)+'</div><div class="meta">'+esc(x.cat)+' • '+new Date(x.date).toLocaleString('uk-UA')+(x.hours?' • '+x.hours+' год':'')+'</div></div><div class="amount '+(x.type==='income'?'green':'red')+'">'+(x.type==='income'?'+':'−')+money(x.amount)+'</div><button class="x" onclick="del('+x.id+')">×</button></div>').join(''):'<div class="empty">Немає операцій за цей період.</div>';draw(d)}
+function draw(d){let c=chart,ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);let v=[];for(let k=6;k>=0;k--){let day=new Date();day.setHours(0,0,0,0);day.setDate(day.getDate()-k);let a=day.getTime(),b=a+864e5,ii=d.filter(x=>x.type==='income'&&x.date>=a&&x.date<b).reduce((s,x)=>s+x.amount,0),ee=d.filter(x=>x.type==='expense'&&x.date>=a&&x.date<b).reduce((s,x)=>s+x.amount,0);v.push({ii,ee,l:day.getDate()+'.'+(day.getMonth()+1)})}let m=Math.max(1,...v.flatMap(x=>[x.ii,x.ee]));v.forEach((x,j)=>{let xx=45+j*(w-70)/7,ih=x.ii/m*150,eh=x.ee/m*150;ctx.fillStyle='#35d98b';ctx.fillRect(xx,h-38-ih,24,ih);ctx.fillStyle='#ff6070';ctx.fillRect(xx+28,h-38-eh,24,eh);ctx.fillStyle='#8d99aa';ctx.font='12px Arial';ctx.fillText(x.l,xx,h-14)})}
+function saveGoal(){goalValue=Number(goal.value)||0;localStorage.setItem('gtaGoal',goalValue);render()}
+function del(id){data=data.filter(x=>x.id!==id);save();render()}
+function clearAll(){if(confirm('Видалити всю історію?')){data=[];save();render()}}
+function exportData(){let b=new Blob([JSON.stringify({version:4,goal:goalValue,data},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ukr-gta-profit-backup.json';a.click()}
+file.onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);data=Array.isArray(x)?x:x.data||[];if(x.goal)goalValue=Number(x.goal);save();localStorage.setItem('gtaGoal',goalValue);render();alert('Дані імпортовано')}catch{alert('Невірний файл')}};r.readAsText(f)}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+goal.value=goalValue||'';setType('income');render();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script></body></html>
