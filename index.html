@@ -3,1042 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UkrGTA PRO</title>
+<title>FarmCalc UA</title>
 
 <style>
-*{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:#070d18;
-color:#fff;
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-.app{
-max-width:650px;
-margin:auto;
-padding:18px;
-padding-bottom:100px;
+body {
+    margin: 0;
+    background: #10131a;
+    color: white;
 }
 
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
+.header {
+    padding: 25px 18px;
+    background: linear-gradient(135deg, #1c7c3a, #0d4524);
+    text-align: center;
+    border-radius: 0 0 25px 25px;
 }
 
-.logo{
-font-size:25px;
-font-weight:800;
+.header h1 {
+    margin: 0;
+    font-size: 30px;
 }
 
-.badge{
-background:#2563eb;
-padding:6px 10px;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
+.header p {
+    margin: 8px 0 0;
+    opacity: .8;
 }
 
-.card{
-background:linear-gradient(145deg,#111d31,#0c1627);
-border:1px solid #223451;
-border-radius:22px;
-padding:18px;
-margin-bottom:14px;
-box-shadow:0 8px 25px rgba(0,0,0,.2);
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 18px;
 }
 
-.balance{
-text-align:center;
-padding:25px 18px;
+.card {
+    background: #191e27;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px #0005;
 }
 
-.balance small{
-color:#8998ad;
+h2 {
+    margin-top: 0;
 }
 
-.balance h1{
-font-size:42px;
-margin:8px 0;
+label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: #b9c2cf;
 }
 
-.green{color:#36dc70}
-.red{color:#ff5964}
-.blue{color:#4c8dff}
-.yellow{color:#ffd34d}
-
-.stats{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
+input, select {
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: 12px;
+    background: #272e39;
+    color: white;
+    font-size: 16px;
+    outline: none;
 }
 
-.stat{
-background:#0a1424;
-border-radius:15px;
-padding:14px;
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    border: 0;
+    border-radius: 12px;
+    background: #25a956;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
 }
 
-.stat span{
-color:#8795a8;
-font-size:13px;
+button:active {
+    transform: scale(.98);
 }
 
-.stat strong{
-display:block;
-font-size:20px;
-margin-top:5px;
+.result {
+    display: grid;
+    gap: 10px;
 }
 
-.progress{
-height:12px;
-background:#18253a;
-border-radius:20px;
-overflow:hidden;
-margin:15px 0 8px;
+.result-box {
+    background: #232a35;
+    padding: 15px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.progress div{
-height:100%;
-background:linear-gradient(90deg,#2563eb,#55a1ff);
-border-radius:20px;
-width:0%;
+.green {
+    color: #42e878;
 }
 
-input,select,button{
-width:100%;
-padding:14px;
-margin-top:9px;
-border-radius:12px;
-border:1px solid #2b405e;
-font-size:16px;
+.red {
+    color: #ff6464;
 }
 
-input,select{
-background:#0b1728;
-color:white;
+.big {
+    font-size: 23px;
+    font-weight: bold;
 }
 
-button{
-background:#2563eb;
-border:0;
-color:white;
-font-weight:700;
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #697381;
 }
-
-button:active{
-transform:scale(.98);
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.mini{
-background:#0b1728;
-border:1px solid #20334d;
-border-radius:16px;
-padding:15px;
-}
-
-.mini h3{
-margin:0 0 5px;
-}
-
-.item{
-background:#0b1728;
-border:1px solid #20334d;
-border-radius:16px;
-padding:15px;
-margin-top:10px;
-}
-
-.itemtop{
-display:flex;
-justify-content:space-between;
-gap:10px;
-}
-
-.item small{
-color:#8391a5;
-}
-
-.delete{
-background:#381820;
-color:#ff6872;
-margin-top:10px;
-}
-
-.result{
-background:#071b15;
-border:1px solid #1b6648;
-border-radius:15px;
-padding:15px;
-margin-top:12px;
-text-align:center;
-}
-
-.big{
-font-size:27px;
-font-weight:800;
-}
-
-.empty{
-text-align:center;
-color:#718096;
-padding:15px;
-}
-
-.sectionTitle{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.sectionTitle h2{
-margin:5px 0 12px;
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="app">
-
 <div class="header">
-<div class="logo">🎮 UkrGTA PRO</div>
-<div class="badge">BETA</div>
+    <h1>🐷 FarmCalc UA</h1>
+    <p>Калькулятор ферми • Укр GTA</p>
 </div>
 
-
-<!-- БАЛАНС -->
-
-<div class="card balance">
-
-<small>Мій баланс</small>
-
-<h1 id="balance">0 ₴</h1>
-
-<div class="stats">
-
-<div class="stat">
-<span>💰 Доходи</span>
-<strong class="green" id="income">0 ₴</strong>
-</div>
-
-<div class="stat">
-<span>💸 Витрати</span>
-<strong class="red" id="expense">0 ₴</strong>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- СЬОГОДНІ -->
+<div class="container">
 
 <div class="card">
+    <h2>⚙️ Налаштування ферми</h2>
 
-<div class="sectionTitle">
-<h2>📊 Сьогодні</h2>
+    <label>Тварина</label>
+    <select id="animal">
+        <option value="pig">🐷 Свиня</option>
+        <option value="cow">🐮 Корова</option>
+        <option value="chicken">🐔 Курка</option>
+    </select>
+
+    <label>Кількість тварин</label>
+    <input id="animals" type="number" value="100" min="1">
+
+    <label>Ціна першого продукту, грн</label>
+    <input id="price1" type="number" value="16800">
+
+    <label>Виробництво першого продукту, хв</label>
+    <input id="time1" type="number" value="30">
+
+    <label>Ціна другого продукту, грн</label>
+    <input id="price2" type="number" value="33520">
+
+    <label>Виробництво другого продукту, хв</label>
+    <input id="time2" type="number" value="120">
+
+    <label>Витрати за годину, грн</label>
+    <input id="expenses" type="number" value="0">
+
+    <button onclick="calculate()">🧮 РОЗРАХУВАТИ</button>
 </div>
-
-<div class="grid">
-
-<div class="mini">
-<h3 class="green" id="todayIncome">0 ₴</h3>
-<small>Зароблено</small>
-</div>
-
-<div class="mini">
-<h3 class="blue" id="todayOperations">0</h3>
-<small>Операцій</small>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ЦІЛЬ -->
 
 <div class="card">
+    <h2>📊 Результат</h2>
 
-<h2>🎯 Моя ціль</h2>
+    <div class="result">
 
-<input
-id="goalName"
-placeholder="Наприклад: Lamborghini"
->
+        <div class="result-box">
+            <span>💰 Дохід / година</span>
+            <strong id="hourIncome" class="green">0 грн</strong>
+        </div>
 
-<input
-id="goalAmount"
-type="number"
-placeholder="Скільки потрібно?"
->
+        <div class="result-box">
+            <span>💰 Дохід / 10 год</span>
+            <strong id="tenIncome" class="green">0 грн</strong>
+        </div>
 
-<button onclick="saveGoal()">
-Зберегти ціль
-</button>
+        <div class="result-box">
+            <span>💰 Дохід / 20 год</span>
+            <strong id="twentyIncome" class="green">0 грн</strong>
+        </div>
 
-<div id="goalBox" style="display:none">
+        <div class="result-box">
+            <span>💰 Дохід / добу</span>
+            <strong id="dayIncome" class="green">0 грн</strong>
+        </div>
 
-<div style="margin-top:15px">
+        <div class="result-box">
+            <span>💸 Витрати / добу</span>
+            <strong id="dayExpenses" class="red">0 грн</strong>
+        </div>
 
-<strong id="goalTitle"></strong>
+        <div class="result-box">
+            <span>🤑 Чистий прибуток / добу</span>
+            <strong id="profit" class="green big">0 грн</strong>
+        </div>
 
-<span style="float:right" id="goalPercent"></span>
-
+    </div>
 </div>
-
-<div class="progress">
-<div id="goalProgress"></div>
-</div>
-
-<small id="goalText"></small>
-
-</div>
-
-</div>
-
-
-<!-- КАЛЬКУЛЯТОР -->
 
 <div class="card">
+    <h2>📦 За 20 годин</h2>
 
-<h2>⏱️ Калькулятор заробітку</h2>
+    <div class="result-box">
+        <span>Перший продукт</span>
+        <strong id="product1">0 шт.</strong>
+    </div>
 
-<input
-id="hourMoney"
-type="number"
-placeholder="Заробіток за годину"
->
-
-<input
-id="hours"
-type="number"
-placeholder="Скільки годин?"
->
-
-<button onclick="calculateMoney()">
-Порахувати
-</button>
-
-<div id="calcResult"></div>
+    <div class="result-box">
+        <span>Другий продукт</span>
+        <strong id="product2">0 шт.</strong>
+    </div>
+</div>
 
 </div>
 
-
-<!-- РОБОТИ -->
-
-<div class="card">
-
-<h2>💼 Мої роботи</h2>
-
-<input
-id="jobName"
-placeholder="Назва роботи"
->
-
-<input
-id="jobMoney"
-type="number"
-placeholder="Заробіток за годину"
->
-
-<button onclick="addJob()">
-Додати роботу
-</button>
-
-<div id="jobs"></div>
-
+<div class="footer">
+    FarmCalc UA © 2026
 </div>
-
-
-<!-- ТРАНСПОРТ -->
-
-<div class="card">
-
-<h2>🚗 Мій транспорт</h2>
-
-<input
-id="carName"
-placeholder="Наприклад: BMW M5"
->
-
-<input
-id="carPrice"
-type="number"
-placeholder="Ціна транспорту"
->
-
-<input
-id="carIncome"
-type="number"
-placeholder="Заробіток за годину"
->
-
-<button onclick="addCar()">
-Додати транспорт
-</button>
-
-<div id="cars"></div>
-
-</div>
-
-
-<!-- ОПЕРАЦІЇ -->
-
-<div class="card">
-
-<h2>💳 Додати операцію</h2>
-
-<input
-id="operationName"
-placeholder="Наприклад: Зарплата"
->
-
-<input
-id="operationAmount"
-type="number"
-placeholder="Сума"
->
-
-<select id="operationType">
-
-<option value="income">
-💰 Дохід
-</option>
-
-<option value="expense">
-💸 Витрата
-</option>
-
-</select>
-
-<button onclick="addOperation()">
-Додати операцію
-</button>
-
-</div>
-
-
-<h2>📋 Історія</h2>
-
-<div id="operations"></div>
-
-</div>
-
 
 <script>
 
-let operations =
-JSON.parse(localStorage.getItem("operations")) || [];
+function calculate() {
 
-let jobs =
-JSON.parse(localStorage.getItem("jobs")) || [];
+    const animals = Number(document.getElementById("animals").value);
+    const price1 = Number(document.getElementById("price1").value);
+    const time1 = Number(document.getElementById("time1").value);
 
-let cars =
-JSON.parse(localStorage.getItem("cars")) || [];
+    const price2 = Number(document.getElementById("price2").value);
+    const time2 = Number(document.getElementById("time2").value);
 
-let goal =
-JSON.parse(localStorage.getItem("goal")) || null;
+    const expensesHour = Number(document.getElementById("expenses").value);
 
+    // Виробництво за годину
+    const product1Hour = (60 / time1) * animals;
+    const product2Hour = (60 / time2) * animals;
 
-function money(number){
-return Number(number).toLocaleString("uk-UA")+" ₴";
+    // Дохід
+    const incomeHour =
+        product1Hour * price1 +
+        product2Hour * price2;
+
+    const income10 = incomeHour * 10;
+    const income20 = incomeHour * 20;
+    const incomeDay = incomeHour * 24;
+
+    // Витрати
+    const expensesDay = expensesHour * 24;
+
+    // Чистий прибуток
+    const profit = incomeDay - expensesDay;
+
+    // Кількість продукції за 20 год
+    const product1_20 = Math.floor((20 * 60 / time1) * animals);
+    const product2_20 = Math.floor((20 * 60 / time2) * animals);
+
+    document.getElementById("hourIncome").innerText =
+        money(incomeHour);
+
+    document.getElementById("tenIncome").innerText =
+        money(income10);
+
+    document.getElementById("twentyIncome").innerText =
+        money(income20);
+
+    document.getElementById("dayIncome").innerText =
+        money(incomeDay);
+
+    document.getElementById("dayExpenses").innerText =
+        money(expensesDay);
+
+    document.getElementById("profit").innerText =
+        money(profit);
+
+    document.getElementById("product1").innerText =
+        product1_20.toLocaleString("uk-UA") + " шт.";
+
+    document.getElementById("product2").innerText =
+        product2_20.toLocaleString("uk-UA") + " шт.";
 }
 
-
-function save(){
-
-localStorage.setItem(
-"operations",
-JSON.stringify(operations)
-);
-
-localStorage.setItem(
-"jobs",
-JSON.stringify(jobs)
-);
-
-localStorage.setItem(
-"cars",
-JSON.stringify(cars)
-);
-
-if(goal){
-localStorage.setItem(
-"goal",
-JSON.stringify(goal)
-);
+function money(number) {
+    return Math.round(number).toLocaleString("uk-UA") + " грн";
 }
 
-}
-
-
-function addOperation(){
-
-let name=
-document.getElementById("operationName").value.trim();
-
-let amount=
-Number(document.getElementById("operationAmount").value);
-
-let type=
-document.getElementById("operationType").value;
-
-
-if(!name || amount<=0){
-
-alert("Заповни назву та суму");
-
-return;
-
-}
-
-
-operations.unshift({
-
-id:Date.now(),
-
-name:name,
-
-amount:amount,
-
-type:type,
-
-date:new Date().toLocaleString("uk-UA")
-
-});
-
-
-save();
-
-document.getElementById("operationName").value="";
-document.getElementById("operationAmount").value="";
-
-render();
-
-}
-
-
-function deleteOperation(id){
-
-operations=
-operations.filter(x=>x.id!==id);
-
-save();
-
-render();
-
-}
-
-
-function render(){
-
-let income=0;
-let expense=0;
-
-let todayIncome=0;
-let todayOperations=0;
-
-let today=
-new Date().toLocaleDateString("uk-UA");
-
-
-operations.forEach(x=>{
-
-if(x.type==="income")
-income+=x.amount;
-else
-expense+=x.amount;
-
-
-if(x.date.startsWith(today)){
-
-todayOperations++;
-
-if(x.type==="income")
-todayIncome+=x.amount;
-
-}
-
-});
-
-
-document.getElementById("balance").textContent=
-money(income-expense);
-
-document.getElementById("income").textContent=
-money(income);
-
-document.getElementById("expense").textContent=
-money(expense);
-
-document.getElementById("todayIncome").textContent=
-money(todayIncome);
-
-document.getElementById("todayOperations").textContent=
-todayOperations;
-
-
-let box=
-document.getElementById("operations");
-
-box.innerHTML="";
-
-
-if(operations.length===0){
-
-box.innerHTML=
-'<div class="empty">Операцій ще немає</div>';
-
-}else{
-
-operations.forEach(x=>{
-
-let div=
-document.createElement("div");
-
-div.className="item";
-
-let sign=
-x.type==="income"?"+":"-";
-
-let color=
-x.type==="income"?"green":"red";
-
-
-div.innerHTML=`
-
-<div class="itemtop">
-
-<strong>${escapeHTML(x.name)}</strong>
-
-<strong class="${color}">
-${sign}${money(x.amount)}
-</strong>
-
-</div>
-
-<small>${x.date}</small>
-
-<button
-class="delete"
-onclick="deleteOperation(${x.id})">
-🗑️ Видалити
-</button>
-
-`;
-
-box.appendChild(div);
-
-});
-
-}
-
-
-renderGoal();
-
-renderJobs();
-
-renderCars();
-
-}
-
-
-function saveGoal(){
-
-let name=
-document.getElementById("goalName").value.trim();
-
-let amount=
-Number(document.getElementById("goalAmount").value);
-
-
-if(!name || amount<=0){
-
-alert("Вкажи назву та суму цілі");
-
-return;
-
-}
-
-
-goal={
-name:name,
-amount:amount
-};
-
-
-save();
-
-renderGoal();
-
-}
-
-
-function renderGoal(){
-
-let box=
-document.getElementById("goalBox");
-
-
-if(!goal){
-
-box.style.display="none";
-
-return;
-
-}
-
-
-box.style.display="block";
-
-
-let income=0;
-
-operations.forEach(x=>{
-
-if(x.type==="income")
-income+=x.amount;
-
-});
-
-
-let percent=
-Math.min(100,(income/goal.amount)*100);
-
-
-document.getElementById("goalTitle")
-.textContent=
-"🎯 "+goal.name;
-
-
-document.getElementById("goalPercent")
-.textContent=
-percent.toFixed(0)+"%";
-
-
-document.getElementById("goalProgress")
-.style.width=
-percent+"%";
-
-
-document.getElementById("goalText")
-.textContent=
-money(income)+" з "+money(goal.amount);
-
-}
-
-
-function calculateMoney(){
-
-let perHour=
-Number(document.getElementById("hourMoney").value);
-
-let hours=
-Number(document.getElementById("hours").value);
-
-
-if(perHour<=0 || hours<=0){
-
-alert("Введи заробіток та години");
-
-return;
-
-}
-
-
-let result=
-perHour*hours;
-
-
-document.getElementById("calcResult").innerHTML=`
-
-<div class="result">
-
-<div>Твій заробіток</div>
-
-<div class="big green">
-${money(result)}
-</div>
-
-<div>
-${money(perHour)} × ${hours} год.
-</div>
-
-</div>
-
-`;
-
-}
-
-
-function addJob(){
-
-let name=
-document.getElementById("jobName").value.trim();
-
-let income=
-Number(document.getElementById("jobMoney").value);
-
-
-if(!name || income<=0){
-
-alert("Заповни роботу");
-
-return;
-
-}
-
-
-jobs.push({
-
-id:Date.now(),
-
-name:name,
-
-income:income
-
-});
-
-
-save();
-
-document.getElementById("jobName").value="";
-document.getElementById("jobMoney").value="";
-
-renderJobs();
-
-}
-
-
-function deleteJob(id){
-
-jobs=
-jobs.filter(x=>x.id!==id);
-
-save();
-
-renderJobs();
-
-}
-
-
-function renderJobs(){
-
-let box=
-document.getElementById("jobs");
-
-box.innerHTML="";
-
-
-if(jobs.length===0){
-
-box.innerHTML=
-'<div class="empty">Додай свою першу роботу</div>';
-
-return;
-
-}
-
-
-let best=
-Math.max(...jobs.map(x=>x.income));
-
-
-jobs.forEach(x=>{
-
-let div=
-document.createElement("div");
-
-div.className="item";
-
-
-div.innerHTML=`
-
-<div class="itemtop">
-
-<strong>
-${escapeHTML(x.name)}
-${x.income===best?" 🏆":""}
-</strong>
-
-<strong class="green">
-${money(x.income)}/год
-</strong>
-
-</div>
-
-<button
-class="delete"
-onclick="deleteJob(${x.id})">
-Видалити
-</button>
-
-`;
-
-
-box.appendChild(div);
-
-});
-
-}
-
-
-function addCar(){
-
-let name=
-document.getElementById("carName").value.trim();
-
-let price=
-Number(document.getElementById("carPrice").value);
-
-let income=
-Number(document.getElementById("carIncome").value);
-
-
-if(!name || price<=0 || income<=0){
-
-alert("Заповни всі поля транспорту");
-
-return;
-
-}
-
-
-cars.push({
-
-id:Date.now(),
-
-name:name,
-
-price:price,
-
-income:income
-
-});
-
-
-save();
-
-document.getElementById("carName").value="";
-document.getElementById("carPrice").value="";
-document.getElementById("carIncome").value="";
-
-renderCars();
-
-}
-
-
-function deleteCar(id){
-
-cars=
-cars.filter(x=>x.id!==id);
-
-save();
-
-renderCars();
-
-}
-
-
-function renderCars(){
-
-let box=
-document.getElementById("cars");
-
-box.innerHTML="";
-
-
-if(cars.length===0){
-
-box.innerHTML=
-'<div class="empty">Додай свій транспорт</div>';
-
-return;
-
-}
-
-
-cars.forEach(x=>{
-
-let hours=
-Math.ceil(x.price/x.income);
-
-
-let div=
-document.createElement("div");
-
-div.className="item";
-
-
-div.innerHTML=`
-
-<div class="itemtop">
-
-<strong>
-🚗 ${escapeHTML(x.name)}
-</strong>
-
-<strong class="yellow">
-${money(x.price)}
-</strong>
-
-</div>
-
-<small>
-Заробіток: ${money(x.income)}/год
-</small>
-
-<div class="result">
-
-Окупність приблизно
-
-<div class="big blue">
-${hours} год.
-</div>
-
-</div>
-
-<button
-class="delete"
-onclick="deleteCar(${x.id})">
-Видалити
-</button>
-
-`;
-
-
-box.appendChild(div);
-
-});
-
-}
-
-
-function escapeHTML(text){
-
-let div=
-document.createElement("div");
-
-div.textContent=text;
-
-return div.innerHTML;
-
-}
-
-
-render();
+calculate();
 
 </script>
 
