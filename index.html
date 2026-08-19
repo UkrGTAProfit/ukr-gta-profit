@@ -3,173 +3,207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GameMoney</title>
+<title>UkrGTA PRO</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#070d18;
+color:#fff;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #07111f;
-  color: white;
+.app{
+max-width:650px;
+margin:auto;
+padding:18px;
+padding-bottom:100px;
 }
 
-.app {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  padding-bottom: 80px;
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
 }
 
-h1 {
-  text-align: center;
-  margin: 15px 0 25px;
+.logo{
+font-size:25px;
+font-weight:800;
 }
 
-.card {
-  background: #111f33;
-  border: 1px solid #243750;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 15px;
+.badge{
+background:#2563eb;
+padding:6px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
 }
 
-.balance {
-  text-align: center;
+.card{
+background:linear-gradient(145deg,#111d31,#0c1627);
+border:1px solid #223451;
+border-radius:22px;
+padding:18px;
+margin-bottom:14px;
+box-shadow:0 8px 25px rgba(0,0,0,.2);
 }
 
-.balance small {
-  color: #aab6c5;
+.balance{
+text-align:center;
+padding:25px 18px;
 }
 
-.balance h2 {
-  font-size: 38px;
-  margin: 10px 0 20px;
+.balance small{
+color:#8998ad;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+.balance h1{
+font-size:42px;
+margin:8px 0;
 }
 
-.stat {
-  background: #0d192a;
-  border-radius: 15px;
-  padding: 15px;
+.green{color:#36dc70}
+.red{color:#ff5964}
+.blue{color:#4c8dff}
+.yellow{color:#ffd34d}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
 
-.stat small {
-  color: #aab6c5;
+.stat{
+background:#0a1424;
+border-radius:15px;
+padding:14px;
 }
 
-.green {
-  color: #42d66b;
+.stat span{
+color:#8795a8;
+font-size:13px;
 }
 
-.red {
-  color: #ff5757;
+.stat strong{
+display:block;
+font-size:20px;
+margin-top:5px;
 }
 
-input,
-select,
-button {
-  width: 100%;
-  padding: 15px;
-  margin-top: 10px;
-  border-radius: 12px;
-  border: 1px solid #30445f;
-  font-size: 16px;
+.progress{
+height:12px;
+background:#18253a;
+border-radius:20px;
+overflow:hidden;
+margin:15px 0 8px;
 }
 
-input,
-select {
-  background: #0d192a;
-  color: white;
+.progress div{
+height:100%;
+background:linear-gradient(90deg,#2563eb,#55a1ff);
+border-radius:20px;
+width:0%;
 }
 
-input::placeholder {
-  color: #8794a5;
+input,select,button{
+width:100%;
+padding:14px;
+margin-top:9px;
+border-radius:12px;
+border:1px solid #2b405e;
+font-size:16px;
 }
 
-button {
-  border: none;
-  background: #2563eb;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+input,select{
+background:#0b1728;
+color:white;
 }
 
-.photoLabel {
-  display: block;
-  background: #0d192a;
-  border: 1px solid #30445f;
-  border-radius: 12px;
-  padding: 15px;
-  margin-top: 10px;
-  text-align: center;
-  cursor: pointer;
+button{
+background:#2563eb;
+border:0;
+color:white;
+font-weight:700;
 }
 
-#photo {
-  display: none;
+button:active{
+transform:scale(.98);
 }
 
-#preview {
-  display: none;
-  width: 100%;
-  max-height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-top: 10px;
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
 
-.operation {
-  background: #111f33;
-  border: 1px solid #243750;
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 10px;
+.mini{
+background:#0b1728;
+border:1px solid #20334d;
+border-radius:16px;
+padding:15px;
 }
 
-.operationTop {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+.mini h3{
+margin:0 0 5px;
 }
 
-.operationName {
-  font-weight: bold;
+.item{
+background:#0b1728;
+border:1px solid #20334d;
+border-radius:16px;
+padding:15px;
+margin-top:10px;
 }
 
-.operationDate {
-  color: #8794a5;
-  font-size: 13px;
-  margin-top: 5px;
+.itemtop{
+display:flex;
+justify-content:space-between;
+gap:10px;
 }
 
-.operation img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-top: 10px;
+.item small{
+color:#8391a5;
 }
 
-.delete {
-  background: #401b22;
-  color: #ff6868;
-  margin-top: 10px;
+.delete{
+background:#381820;
+color:#ff6872;
+margin-top:10px;
 }
 
-.empty {
-  text-align: center;
-  color: #8794a5;
-  padding: 25px;
+.result{
+background:#071b15;
+border:1px solid #1b6648;
+border-radius:15px;
+padding:15px;
+margin-top:12px;
+text-align:center;
 }
+
+.big{
+font-size:27px;
+font-weight:800;
+}
+
+.empty{
+text-align:center;
+color:#718096;
+padding:15px;
+}
+
+.sectionTitle{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.sectionTitle h2{
+margin:5px 0 12px;
+}
+
 </style>
 </head>
 
@@ -177,73 +211,226 @@ button {
 
 <div class="app">
 
-<h1>🎮 GameMoney</h1>
+<div class="header">
+<div class="logo">🎮 UkrGTA PRO</div>
+<div class="badge">BETA</div>
+</div>
+
+
+<!-- БАЛАНС -->
 
 <div class="card balance">
 
-  <small>Мій баланс</small>
+<small>Мій баланс</small>
 
-  <h2 id="balance">0 ₴</h2>
+<h1 id="balance">0 ₴</h1>
 
-  <div class="stats">
+<div class="stats">
 
-    <div class="stat">
-      <small>Доходи</small>
-      <h3 id="income" class="green">0 ₴</h3>
-    </div>
+<div class="stat">
+<span>💰 Доходи</span>
+<strong class="green" id="income">0 ₴</strong>
+</div>
 
-    <div class="stat">
-      <small>Витрати</small>
-      <h3 id="expense" class="red">0 ₴</h3>
-    </div>
+<div class="stat">
+<span>💸 Витрати</span>
+<strong class="red" id="expense">0 ₴</strong>
+</div>
 
-  </div>
+</div>
 
 </div>
 
 
+<!-- СЬОГОДНІ -->
+
 <div class="card">
 
-<h3>➕ Додати операцію</h3>
+<div class="sectionTitle">
+<h2>📊 Сьогодні</h2>
+</div>
+
+<div class="grid">
+
+<div class="mini">
+<h3 class="green" id="todayIncome">0 ₴</h3>
+<small>Зароблено</small>
+</div>
+
+<div class="mini">
+<h3 class="blue" id="todayOperations">0</h3>
+<small>Операцій</small>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ЦІЛЬ -->
+
+<div class="card">
+
+<h2>🎯 Моя ціль</h2>
 
 <input
-  id="name"
-  type="text"
-  placeholder="Назва операції"
+id="goalName"
+placeholder="Наприклад: Lamborghini"
 >
 
 <input
-  id="amount"
-  type="number"
-  inputmode="decimal"
-  placeholder="Сума"
+id="goalAmount"
+type="number"
+placeholder="Скільки потрібно?"
 >
 
-<select id="type">
-  <option value="income">💰 Дохід</option>
-  <option value="expense">💸 Витрата</option>
+<button onclick="saveGoal()">
+Зберегти ціль
+</button>
+
+<div id="goalBox" style="display:none">
+
+<div style="margin-top:15px">
+
+<strong id="goalTitle"></strong>
+
+<span style="float:right" id="goalPercent"></span>
+
+</div>
+
+<div class="progress">
+<div id="goalProgress"></div>
+</div>
+
+<small id="goalText"></small>
+
+</div>
+
+</div>
+
+
+<!-- КАЛЬКУЛЯТОР -->
+
+<div class="card">
+
+<h2>⏱️ Калькулятор заробітку</h2>
+
+<input
+id="hourMoney"
+type="number"
+placeholder="Заробіток за годину"
+>
+
+<input
+id="hours"
+type="number"
+placeholder="Скільки годин?"
+>
+
+<button onclick="calculateMoney()">
+Порахувати
+</button>
+
+<div id="calcResult"></div>
+
+</div>
+
+
+<!-- РОБОТИ -->
+
+<div class="card">
+
+<h2>💼 Мої роботи</h2>
+
+<input
+id="jobName"
+placeholder="Назва роботи"
+>
+
+<input
+id="jobMoney"
+type="number"
+placeholder="Заробіток за годину"
+>
+
+<button onclick="addJob()">
+Додати роботу
+</button>
+
+<div id="jobs"></div>
+
+</div>
+
+
+<!-- ТРАНСПОРТ -->
+
+<div class="card">
+
+<h2>🚗 Мій транспорт</h2>
+
+<input
+id="carName"
+placeholder="Наприклад: BMW M5"
+>
+
+<input
+id="carPrice"
+type="number"
+placeholder="Ціна транспорту"
+>
+
+<input
+id="carIncome"
+type="number"
+placeholder="Заробіток за годину"
+>
+
+<button onclick="addCar()">
+Додати транспорт
+</button>
+
+<div id="cars"></div>
+
+</div>
+
+
+<!-- ОПЕРАЦІЇ -->
+
+<div class="card">
+
+<h2>💳 Додати операцію</h2>
+
+<input
+id="operationName"
+placeholder="Наприклад: Зарплата"
+>
+
+<input
+id="operationAmount"
+type="number"
+placeholder="Сума"
+>
+
+<select id="operationType">
+
+<option value="income">
+💰 Дохід
+</option>
+
+<option value="expense">
+💸 Витрата
+</option>
+
 </select>
 
-<label class="photoLabel" for="photo">
-  📸 Вибрати фото з галереї
-</label>
-
-<input
-  id="photo"
-  type="file"
-  accept="image/*"
->
-
-<img id="preview">
-
 <button onclick="addOperation()">
-  Додати
+Додати операцію
 </button>
 
 </div>
 
 
-<h2>📋 Історія операцій</h2>
+<h2>📋 Історія</h2>
 
 <div id="operations"></div>
 
@@ -253,271 +440,600 @@ button {
 <script>
 
 let operations =
-  JSON.parse(localStorage.getItem("gameMoneyOperations")) || [];
+JSON.parse(localStorage.getItem("operations")) || [];
 
-let selectedPhoto = "";
+let jobs =
+JSON.parse(localStorage.getItem("jobs")) || [];
+
+let cars =
+JSON.parse(localStorage.getItem("cars")) || [];
+
+let goal =
+JSON.parse(localStorage.getItem("goal")) || null;
 
 
-const photoInput =
-  document.getElementById("photo");
-
-const preview =
-  document.getElementById("preview");
+function money(number){
+return Number(number).toLocaleString("uk-UA")+" ₴";
+}
 
 
-photoInput.addEventListener("change", function () {
+function save(){
 
-  const file = this.files[0];
+localStorage.setItem(
+"operations",
+JSON.stringify(operations)
+);
 
-  if (!file) return;
+localStorage.setItem(
+"jobs",
+JSON.stringify(jobs)
+);
 
-  const reader = new FileReader();
+localStorage.setItem(
+"cars",
+JSON.stringify(cars)
+);
 
-  reader.onload = function (event) {
+if(goal){
+localStorage.setItem(
+"goal",
+JSON.stringify(goal)
+);
+}
 
-    selectedPhoto = event.target.result;
+}
 
-    preview.src = selectedPhoto;
 
-    preview.style.display = "block";
+function addOperation(){
 
-  };
+let name=
+document.getElementById("operationName").value.trim();
 
-  reader.readAsDataURL(file);
+let amount=
+Number(document.getElementById("operationAmount").value);
+
+let type=
+document.getElementById("operationType").value;
+
+
+if(!name || amount<=0){
+
+alert("Заповни назву та суму");
+
+return;
+
+}
+
+
+operations.unshift({
+
+id:Date.now(),
+
+name:name,
+
+amount:amount,
+
+type:type,
+
+date:new Date().toLocaleString("uk-UA")
 
 });
 
 
-function save() {
+save();
 
-  localStorage.setItem(
-    "gameMoneyOperations",
-    JSON.stringify(operations)
-  );
+document.getElementById("operationName").value="";
+document.getElementById("operationAmount").value="";
 
-}
-
-
-function addOperation() {
-
-  const name =
-    document.getElementById("name").value.trim();
-
-  const amount =
-    Number(document.getElementById("amount").value);
-
-  const type =
-    document.getElementById("type").value;
-
-
-  if (!name) {
-
-    alert("Введи назву операції");
-
-    return;
-
-  }
-
-
-  if (!amount || amount <= 0) {
-
-    alert("Введи правильну суму");
-
-    return;
-
-  }
-
-
-  const operation = {
-
-    id: Date.now(),
-
-    name: name,
-
-    amount: amount,
-
-    type: type,
-
-    photo: selectedPhoto,
-
-    date: new Date().toLocaleString("uk-UA")
-
-  };
-
-
-  operations.unshift(operation);
-
-  save();
-
-
-  document.getElementById("name").value = "";
-
-  document.getElementById("amount").value = "";
-
-  document.getElementById("type").value = "income";
-
-  document.getElementById("photo").value = "";
-
-  selectedPhoto = "";
-
-  preview.src = "";
-
-  preview.style.display = "none";
-
-
-  render();
+render();
 
 }
 
 
-function deleteOperation(id) {
+function deleteOperation(id){
 
-  if (!confirm("Видалити цю операцію?")) {
-    return;
-  }
+operations=
+operations.filter(x=>x.id!==id);
 
+save();
 
-  operations =
-    operations.filter(item => item.id !== id);
-
-
-  save();
-
-  render();
+render();
 
 }
 
 
-function money(value) {
+function render(){
 
-  return value.toLocaleString("uk-UA") + " ₴";
+let income=0;
+let expense=0;
+
+let todayIncome=0;
+let todayOperations=0;
+
+let today=
+new Date().toLocaleDateString("uk-UA");
+
+
+operations.forEach(x=>{
+
+if(x.type==="income")
+income+=x.amount;
+else
+expense+=x.amount;
+
+
+if(x.date.startsWith(today)){
+
+todayOperations++;
+
+if(x.type==="income")
+todayIncome+=x.amount;
+
+}
+
+});
+
+
+document.getElementById("balance").textContent=
+money(income-expense);
+
+document.getElementById("income").textContent=
+money(income);
+
+document.getElementById("expense").textContent=
+money(expense);
+
+document.getElementById("todayIncome").textContent=
+money(todayIncome);
+
+document.getElementById("todayOperations").textContent=
+todayOperations;
+
+
+let box=
+document.getElementById("operations");
+
+box.innerHTML="";
+
+
+if(operations.length===0){
+
+box.innerHTML=
+'<div class="empty">Операцій ще немає</div>';
+
+}else{
+
+operations.forEach(x=>{
+
+let div=
+document.createElement("div");
+
+div.className="item";
+
+let sign=
+x.type==="income"?"+":"-";
+
+let color=
+x.type==="income"?"green":"red";
+
+
+div.innerHTML=`
+
+<div class="itemtop">
+
+<strong>${escapeHTML(x.name)}</strong>
+
+<strong class="${color}">
+${sign}${money(x.amount)}
+</strong>
+
+</div>
+
+<small>${x.date}</small>
+
+<button
+class="delete"
+onclick="deleteOperation(${x.id})">
+🗑️ Видалити
+</button>
+
+`;
+
+box.appendChild(div);
+
+});
 
 }
 
 
-function render() {
+renderGoal();
 
-  let income = 0;
+renderJobs();
 
-  let expense = 0;
-
-
-  operations.forEach(item => {
-
-    if (item.type === "income") {
-
-      income += item.amount;
-
-    } else {
-
-      expense += item.amount;
-
-    }
-
-  });
-
-
-  const balance =
-    income - expense;
-
-
-  document.getElementById("balance").textContent =
-    money(balance);
-
-  document.getElementById("income").textContent =
-    money(income);
-
-  document.getElementById("expense").textContent =
-    money(expense);
-
-
-  const container =
-    document.getElementById("operations");
-
-
-  if (operations.length === 0) {
-
-    container.innerHTML =
-      '<div class="empty">Операцій поки немає</div>';
-
-    return;
-
-  }
-
-
-  container.innerHTML = "";
-
-
-  operations.forEach(item => {
-
-    const div =
-      document.createElement("div");
-
-
-    div.className = "operation";
-
-
-    const sign =
-      item.type === "income" ? "+" : "-";
-
-
-    const color =
-      item.type === "income" ? "green" : "red";
-
-
-    div.innerHTML = `
-
-      <div class="operationTop">
-
-        <div>
-
-          <div class="operationName">
-            ${escapeHTML(item.name)}
-          </div>
-
-          <div class="operationDate">
-            ${item.date}
-          </div>
-
-        </div>
-
-        <strong class="${color}">
-          ${sign}${money(item.amount)}
-        </strong>
-
-      </div>
-
-      ${
-        item.photo
-          ? `<img src="${item.photo}" alt="Фото операції">`
-          : ""
-      }
-
-      <button
-        class="delete"
-        onclick="deleteOperation(${item.id})"
-      >
-        🗑️ Видалити
-      </button>
-
-    `;
-
-
-    container.appendChild(div);
-
-  });
+renderCars();
 
 }
 
 
-function escapeHTML(text) {
+function saveGoal(){
 
-  const div =
-    document.createElement("div");
+let name=
+document.getElementById("goalName").value.trim();
 
-  div.textContent = text;
+let amount=
+Number(document.getElementById("goalAmount").value);
 
-  return div.innerHTML;
+
+if(!name || amount<=0){
+
+alert("Вкажи назву та суму цілі");
+
+return;
+
+}
+
+
+goal={
+name:name,
+amount:amount
+};
+
+
+save();
+
+renderGoal();
+
+}
+
+
+function renderGoal(){
+
+let box=
+document.getElementById("goalBox");
+
+
+if(!goal){
+
+box.style.display="none";
+
+return;
+
+}
+
+
+box.style.display="block";
+
+
+let income=0;
+
+operations.forEach(x=>{
+
+if(x.type==="income")
+income+=x.amount;
+
+});
+
+
+let percent=
+Math.min(100,(income/goal.amount)*100);
+
+
+document.getElementById("goalTitle")
+.textContent=
+"🎯 "+goal.name;
+
+
+document.getElementById("goalPercent")
+.textContent=
+percent.toFixed(0)+"%";
+
+
+document.getElementById("goalProgress")
+.style.width=
+percent+"%";
+
+
+document.getElementById("goalText")
+.textContent=
+money(income)+" з "+money(goal.amount);
+
+}
+
+
+function calculateMoney(){
+
+let perHour=
+Number(document.getElementById("hourMoney").value);
+
+let hours=
+Number(document.getElementById("hours").value);
+
+
+if(perHour<=0 || hours<=0){
+
+alert("Введи заробіток та години");
+
+return;
+
+}
+
+
+let result=
+perHour*hours;
+
+
+document.getElementById("calcResult").innerHTML=`
+
+<div class="result">
+
+<div>Твій заробіток</div>
+
+<div class="big green">
+${money(result)}
+</div>
+
+<div>
+${money(perHour)} × ${hours} год.
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function addJob(){
+
+let name=
+document.getElementById("jobName").value.trim();
+
+let income=
+Number(document.getElementById("jobMoney").value);
+
+
+if(!name || income<=0){
+
+alert("Заповни роботу");
+
+return;
+
+}
+
+
+jobs.push({
+
+id:Date.now(),
+
+name:name,
+
+income:income
+
+});
+
+
+save();
+
+document.getElementById("jobName").value="";
+document.getElementById("jobMoney").value="";
+
+renderJobs();
+
+}
+
+
+function deleteJob(id){
+
+jobs=
+jobs.filter(x=>x.id!==id);
+
+save();
+
+renderJobs();
+
+}
+
+
+function renderJobs(){
+
+let box=
+document.getElementById("jobs");
+
+box.innerHTML="";
+
+
+if(jobs.length===0){
+
+box.innerHTML=
+'<div class="empty">Додай свою першу роботу</div>';
+
+return;
+
+}
+
+
+let best=
+Math.max(...jobs.map(x=>x.income));
+
+
+jobs.forEach(x=>{
+
+let div=
+document.createElement("div");
+
+div.className="item";
+
+
+div.innerHTML=`
+
+<div class="itemtop">
+
+<strong>
+${escapeHTML(x.name)}
+${x.income===best?" 🏆":""}
+</strong>
+
+<strong class="green">
+${money(x.income)}/год
+</strong>
+
+</div>
+
+<button
+class="delete"
+onclick="deleteJob(${x.id})">
+Видалити
+</button>
+
+`;
+
+
+box.appendChild(div);
+
+});
+
+}
+
+
+function addCar(){
+
+let name=
+document.getElementById("carName").value.trim();
+
+let price=
+Number(document.getElementById("carPrice").value);
+
+let income=
+Number(document.getElementById("carIncome").value);
+
+
+if(!name || price<=0 || income<=0){
+
+alert("Заповни всі поля транспорту");
+
+return;
+
+}
+
+
+cars.push({
+
+id:Date.now(),
+
+name:name,
+
+price:price,
+
+income:income
+
+});
+
+
+save();
+
+document.getElementById("carName").value="";
+document.getElementById("carPrice").value="";
+document.getElementById("carIncome").value="";
+
+renderCars();
+
+}
+
+
+function deleteCar(id){
+
+cars=
+cars.filter(x=>x.id!==id);
+
+save();
+
+renderCars();
+
+}
+
+
+function renderCars(){
+
+let box=
+document.getElementById("cars");
+
+box.innerHTML="";
+
+
+if(cars.length===0){
+
+box.innerHTML=
+'<div class="empty">Додай свій транспорт</div>';
+
+return;
+
+}
+
+
+cars.forEach(x=>{
+
+let hours=
+Math.ceil(x.price/x.income);
+
+
+let div=
+document.createElement("div");
+
+div.className="item";
+
+
+div.innerHTML=`
+
+<div class="itemtop">
+
+<strong>
+🚗 ${escapeHTML(x.name)}
+</strong>
+
+<strong class="yellow">
+${money(x.price)}
+</strong>
+
+</div>
+
+<small>
+Заробіток: ${money(x.income)}/год
+</small>
+
+<div class="result">
+
+Окупність приблизно
+
+<div class="big blue">
+${hours} год.
+</div>
+
+</div>
+
+<button
+class="delete"
+onclick="deleteCar(${x.id})">
+Видалити
+</button>
+
+`;
+
+
+box.appendChild(div);
+
+});
+
+}
+
+
+function escapeHTML(text){
+
+let div=
+document.createElement("div");
+
+div.textContent=text;
+
+return div.innerHTML;
 
 }
 
