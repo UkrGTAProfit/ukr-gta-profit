@@ -3,287 +3,988 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FarmCalc UA</title>
+<title>Farm PRO 5.0</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+
+body{
+margin:0;
+background:#020b16;
+color:white;
 }
 
-body {
-    margin: 0;
-    background: #10131a;
-    color: white;
+.app{
+max-width:720px;
+margin:auto;
+padding-bottom:90px;
 }
 
-.header {
-    padding: 25px 18px;
-    background: linear-gradient(135deg, #1c7c3a, #0d4524);
-    text-align: center;
-    border-radius: 0 0 25px 25px;
+header{
+padding:20px 16px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:linear-gradient(135deg,#061526,#09253b);
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 30px;
+.logo{
+font-size:26px;
+font-weight:900;
 }
 
-.header p {
-    margin: 8px 0 0;
-    opacity: .8;
+.logo span{color:#4ade80}
+
+.balance{
+background:#0d1d2f;
+border:1px solid #29415d;
+border-radius:16px;
+padding:10px 16px;
+text-align:center;
 }
 
-.container {
-    max-width: 600px;
-    margin: auto;
-    padding: 18px;
+.balance small{
+color:#94a3b8;
+display:block;
 }
 
-.card {
-    background: #191e27;
-    padding: 18px;
-    margin-bottom: 15px;
-    border-radius: 18px;
-    box-shadow: 0 5px 20px #0005;
+.balance strong{
+color:#67f532;
+font-size:22px;
 }
 
-h2 {
-    margin-top: 0;
+.hero{
+margin:15px;
+border-radius:22px;
+overflow:hidden;
+background:
+linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,.15)),
+linear-gradient(135deg,#245b2c,#6aa84f);
+padding:25px 20px;
+min-height:230px;
+position:relative;
 }
 
-label {
-    display: block;
-    margin-top: 12px;
-    margin-bottom: 6px;
-    color: #b9c2cf;
+.hero h2{
+margin:0;
+font-size:18px;
 }
 
-input, select {
-    width: 100%;
-    padding: 14px;
-    border: 0;
-    border-radius: 12px;
-    background: #272e39;
-    color: white;
-    font-size: 16px;
-    outline: none;
+.hero .pigs{
+font-size:52px;
+font-weight:900;
+color:#55ed35;
 }
 
-button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    border: 0;
-    border-radius: 12px;
-    background: #25a956;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
+.hero p{
+margin:0 0 18px;
 }
 
-button:active {
-    transform: scale(.98);
+.btn{
+border:0;
+border-radius:12px;
+padding:13px 18px;
+font-size:15px;
+font-weight:bold;
+color:white;
+background:#22c55e;
 }
 
-.result {
-    display: grid;
-    gap: 10px;
+.cards{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+padding:0 15px;
 }
 
-.result-box {
-    background: #232a35;
-    padding: 15px;
-    border-radius: 14px;
-    display: flex;
-    justify-content: space-between;
+.card{
+background:#0b1828;
+border:1px solid #1e344b;
+border-radius:16px;
+padding:15px;
 }
 
-.green {
-    color: #42e878;
+.card small{
+color:#94a3b8;
 }
 
-.red {
-    color: #ff6464;
+.card strong{
+display:block;
+font-size:21px;
+margin-top:7px;
 }
 
-.big {
-    font-size: 23px;
-    font-weight: bold;
+.green{color:#a3ff35}
+.blue{color:#38bdf8}
+.yellow{color:#facc15}
+.purple{color:#c084fc}
+
+.section{
+padding:15px;
 }
 
-.footer {
-    text-align: center;
-    padding: 20px;
-    color: #697381;
+.sectionTitle{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.sectionTitle h2{
+margin:0;
+}
+
+.production{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.product{
+background:#0b1828;
+border:1px solid #1e344b;
+border-radius:18px;
+padding:15px;
+text-align:center;
+}
+
+.productIcon{
+font-size:42px;
+}
+
+.timer{
+font-size:27px;
+font-weight:bold;
+margin:10px 0;
+color:#4ade80;
+}
+
+.product button{
+width:100%;
+margin-top:10px;
+}
+
+.stock{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 0;
+border-bottom:1px solid #203247;
+}
+
+.stockIcon{
+font-size:32px;
+}
+
+.shopBtn{
+background:#22c55e;
+border:0;
+border-radius:10px;
+padding:9px 13px;
+color:white;
+font-weight:bold;
+}
+
+.menuGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+}
+
+.menuItem{
+background:#0b1828;
+border:1px solid #1e344b;
+border-radius:14px;
+padding:13px 5px;
+text-align:center;
+font-size:12px;
+}
+
+.menuItem div{
+font-size:28px;
+margin-bottom:5px;
+}
+
+.bottom{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:72px;
+background:#06111e;
+border-top:1px solid #203247;
+display:flex;
+justify-content:center;
+z-index:20;
+}
+
+.bottom button{
+flex:1;
+max-width:140px;
+background:none;
+border:0;
+color:#64748b;
+font-size:11px;
+}
+
+.bottom button span{
+display:block;
+font-size:24px;
+margin-bottom:3px;
+}
+
+.active{
+color:#52f52f!important;
+}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.75);
+z-index:50;
+padding:20px;
+}
+
+.modalBox{
+max-width:500px;
+margin:70px auto;
+background:#0b1828;
+border:1px solid #29415d;
+border-radius:20px;
+padding:20px;
+}
+
+.modal input{
+width:100%;
+padding:14px;
+margin:8px 0 12px;
+border:0;
+border-radius:10px;
+font-size:16px;
+}
+
+.close{
+float:right;
+background:#334155;
+border:0;
+color:white;
+border-radius:8px;
+padding:7px 10px;
+}
+
+@media(max-width:500px){
+.production{
+grid-template-columns:1fr 1fr;
+}
+
+.menuGrid{
+grid-template-columns:repeat(4,1fr);
+}
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <h1>🐷 FarmCalc UA</h1>
-    <p>Калькулятор ферми • Укр GTA</p>
+<div class="app">
+
+<header>
+
+<div class="logo">
+🐷 FARM <span>PRO</span>
 </div>
 
-<div class="container">
-
-<div class="card">
-    <h2>⚙️ Налаштування ферми</h2>
-
-    <label>Тварина</label>
-    <select id="animal">
-        <option value="pig">🐷 Свиня</option>
-        <option value="cow">🐮 Корова</option>
-        <option value="chicken">🐔 Курка</option>
-    </select>
-
-    <label>Кількість тварин</label>
-    <input id="animals" type="number" value="100" min="1">
-
-    <label>Ціна першого продукту, грн</label>
-    <input id="price1" type="number" value="16800">
-
-    <label>Виробництво першого продукту, хв</label>
-    <input id="time1" type="number" value="30">
-
-    <label>Ціна другого продукту, грн</label>
-    <input id="price2" type="number" value="33520">
-
-    <label>Виробництво другого продукту, хв</label>
-    <input id="time2" type="number" value="120">
-
-    <label>Витрати за годину, грн</label>
-    <input id="expenses" type="number" value="0">
-
-    <button onclick="calculate()">🧮 РОЗРАХУВАТИ</button>
+<div class="balance">
+<small>💰 БАЛАНС</small>
+<strong id="balance">0 грн</strong>
 </div>
 
+</header>
+
+
+<!-- ГОЛОВНА ФЕРМА -->
+
+<div class="hero">
+
+<h2>ТВОЯ ФЕРМА</h2>
+
+<div class="pigs" id="pigsHero">60</div>
+
+<p>🐷 СВИНЕЙ</p>
+
+<button class="btn" onclick="openFarm()">
+⚙️ УПРАВЛІННЯ ФЕРМОЮ
+</button>
+
+</div>
+
+
+<!-- СТАТИСТИКА -->
+
+<div class="cards">
+
 <div class="card">
-    <h2>📊 Результат</h2>
-
-    <div class="result">
-
-        <div class="result-box">
-            <span>💰 Дохід / година</span>
-            <strong id="hourIncome" class="green">0 грн</strong>
-        </div>
-
-        <div class="result-box">
-            <span>💰 Дохід / 10 год</span>
-            <strong id="tenIncome" class="green">0 грн</strong>
-        </div>
-
-        <div class="result-box">
-            <span>💰 Дохід / 20 год</span>
-            <strong id="twentyIncome" class="green">0 грн</strong>
-        </div>
-
-        <div class="result-box">
-            <span>💰 Дохід / добу</span>
-            <strong id="dayIncome" class="green">0 грн</strong>
-        </div>
-
-        <div class="result-box">
-            <span>💸 Витрати / добу</span>
-            <strong id="dayExpenses" class="red">0 грн</strong>
-        </div>
-
-        <div class="result-box">
-            <span>🤑 Чистий прибуток / добу</span>
-            <strong id="profit" class="green big">0 грн</strong>
-        </div>
-
-    </div>
+<small>📦 НА СКЛАДІ</small>
+<strong class="yellow" id="stock">0</strong>
+<small>шт.</small>
 </div>
 
 <div class="card">
-    <h2>📦 За 20 годин</h2>
+<small>💵 СЬОГОДНІ ДОХІД</small>
+<strong class="green" id="sales">0</strong>
+<small>грн</small>
+</div>
 
-    <div class="result-box">
-        <span>Перший продукт</span>
-        <strong id="product1">0 шт.</strong>
-    </div>
+<div class="card">
+<small>📈 ЗАГ. ЗАРОБІТОК</small>
+<strong class="blue" id="total">0</strong>
+<small>грн</small>
+</div>
 
-    <div class="result-box">
-        <span>Другий продукт</span>
-        <strong id="product2">0 шт.</strong>
-    </div>
+<div class="card">
+<small>⭐ РІВЕНЬ</small>
+<strong class="purple" id="level">1</strong>
+<small id="xp">0 / 100 XP</small>
 </div>
 
 </div>
 
-<div class="footer">
-    FarmCalc UA © 2026
+
+<!-- ВИРОБНИЦТВО -->
+
+<div class="section">
+
+<div class="sectionTitle">
+<h2>⏱️ ВИРОБНИЦТВО</h2>
 </div>
+
+<div class="production">
+
+
+<div class="product">
+
+<div class="productIcon">🥓</div>
+
+<h3>БЕКОН</h3>
+
+<small>1 цикл — 30 хв</small>
+
+<div class="timer" id="baconTimer">
+30:00
+</div>
+
+<div>
+Готово:
+<strong id="baconReady">0</strong>
+</div>
+
+<button class="btn" onclick="collectBacon()">
+📦 ЗАБРАТИ
+</button>
+
+</div>
+
+
+<div class="product">
+
+<div class="productIcon">🧈</div>
+
+<h3>САЛО</h3>
+
+<small>1 цикл — 2 год</small>
+
+<div class="timer" id="saloTimer">
+02:00:00
+</div>
+
+<div>
+Готово:
+<strong id="saloReady">0</strong>
+</div>
+
+<button class="btn" onclick="collectSalo()">
+📦 ЗАБРАТИ
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- СКЛАД -->
+
+<div class="section">
+
+<div class="sectionTitle">
+<h2>📦 СКЛАД</h2>
+
+<button class="shopBtn" onclick="openShop()">
+ПРОДАТИ
+</button>
+</div>
+
+<div class="card">
+
+<div class="stock">
+<div>
+<span class="stockIcon">🥓</span>
+Бекон
+</div>
+
+<strong id="baconStock">
+0 шт.
+</strong>
+</div>
+
+<div class="stock">
+<div>
+<span class="stockIcon">🧈</span>
+Сало
+</div>
+
+<strong id="saloStock">
+0 шт.
+</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- МЕНЮ -->
+
+<div class="section">
+
+<div class="menuGrid">
+
+<div class="menuItem" onclick="openFarm()">
+<div>🐷</div>
+Ферма
+</div>
+
+<div class="menuItem" onclick="openShop()">
+<div>🛒</div>
+Магазин
+</div>
+
+<div class="menuItem" onclick="openWarehouse()">
+<div>📦</div>
+Склад
+</div>
+
+<div class="menuItem" onclick="openMoney()">
+<div>💰</div>
+Фінанси
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- МОДАЛКА -->
+
+<div class="modal" id="modal">
+
+<div class="modalBox">
+
+<button class="close" onclick="closeModal()">✕</button>
+
+<h2 id="modalTitle">Farm PRO</h2>
+
+<div id="modalContent"></div>
+
+</div>
+
+</div>
+
+
+<!-- НИЖНЄ МЕНЮ -->
+
+<div class="bottom">
+
+<button class="active" onclick="closeModal()">
+<span>🏠</span>
+ГОЛОВНА
+</button>
+
+<button onclick="openFarm()">
+<span>🐷</span>
+ФЕРМА
+</button>
+
+<button onclick="openProduction()">
+<span>⏱️</span>
+ВИРОБНИЦТВО
+</button>
+
+<button onclick="openWarehouse()">
+<span>📦</span>
+СКЛАД
+</button>
+
+<button onclick="openShop()">
+<span>🛒</span>
+ПРОДАЖ
+</button>
+
+</div>
+
 
 <script>
 
-function calculate() {
+let data={
+pigs:60,
+baconPrice:16800,
+saloPrice:33520,
+balance:0,
+baconReady:0,
+saloReady:0,
+baconStock:0,
+saloStock:0,
+sales:0,
+total:0,
+xp:0,
+level:1,
+baconStart:Date.now(),
+saloStart:Date.now()
+};
 
-    const animals = Number(document.getElementById("animals").value);
-    const price1 = Number(document.getElementById("price1").value);
-    const time1 = Number(document.getElementById("time1").value);
 
-    const price2 = Number(document.getElementById("price2").value);
-    const time2 = Number(document.getElementById("time2").value);
+const BACON_TIME=30*60*1000;
+const SALO_TIME=2*60*60*1000;
 
-    const expensesHour = Number(document.getElementById("expenses").value);
 
-    // Виробництво за годину
-    const product1Hour = (60 / time1) * animals;
-    const product2Hour = (60 / time2) * animals;
-
-    // Дохід
-    const incomeHour =
-        product1Hour * price1 +
-        product2Hour * price2;
-
-    const income10 = incomeHour * 10;
-    const income20 = incomeHour * 20;
-    const incomeDay = incomeHour * 24;
-
-    // Витрати
-    const expensesDay = expensesHour * 24;
-
-    // Чистий прибуток
-    const profit = incomeDay - expensesDay;
-
-    // Кількість продукції за 20 год
-    const product1_20 = Math.floor((20 * 60 / time1) * animals);
-    const product2_20 = Math.floor((20 * 60 / time2) * animals);
-
-    document.getElementById("hourIncome").innerText =
-        money(incomeHour);
-
-    document.getElementById("tenIncome").innerText =
-        money(income10);
-
-    document.getElementById("twentyIncome").innerText =
-        money(income20);
-
-    document.getElementById("dayIncome").innerText =
-        money(incomeDay);
-
-    document.getElementById("dayExpenses").innerText =
-        money(expensesDay);
-
-    document.getElementById("profit").innerText =
-        money(profit);
-
-    document.getElementById("product1").innerText =
-        product1_20.toLocaleString("uk-UA") + " шт.";
-
-    document.getElementById("product2").innerText =
-        product2_20.toLocaleString("uk-UA") + " шт.";
+function save(){
+localStorage.setItem("farmPro5",JSON.stringify(data));
 }
 
-function money(number) {
-    return Math.round(number).toLocaleString("uk-UA") + " грн";
+
+function load(){
+
+let saved=localStorage.getItem("farmPro5");
+
+if(saved){
+data=JSON.parse(saved);
 }
 
-calculate();
+update();
+}
+
+
+function money(n){
+return Number(n).toLocaleString("uk-UA")+" грн";
+}
+
+
+function timeFormat(ms){
+
+if(ms<0)ms=0;
+
+let total=Math.floor(ms/1000);
+
+let s=total%60;
+let m=Math.floor(total/60)%60;
+let h=Math.floor(total/3600);
+
+if(h>0){
+return String(h).padStart(2,"0")+":"+
+String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0");
+}
+
+return String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0");
+}
+
+
+function update(){
+
+let now=Date.now();
+
+
+let baconCycles=
+Math.floor((now-data.baconStart)/BACON_TIME);
+
+if(baconCycles>0){
+
+data.baconReady+=
+baconCycles*data.pigs;
+
+data.baconStart+=
+baconCycles*BACON_TIME;
+
+}
+
+
+let saloCycles=
+Math.floor((now-data.saloStart)/SALO_TIME);
+
+if(saloCycles>0){
+
+data.saloReady+=
+saloCycles*data.pigs;
+
+data.saloStart+=
+saloCycles*SALO_TIME;
+
+}
+
+
+document.getElementById("baconTimer").innerText=
+timeFormat(BACON_TIME-(now-data.baconStart));
+
+document.getElementById("saloTimer").innerText=
+timeFormat(SALO_TIME-(now-data.saloStart));
+
+
+document.getElementById("baconReady").innerText=
+data.baconReady.toLocaleString("uk-UA");
+
+document.getElementById("saloReady").innerText=
+data.saloReady.toLocaleString("uk-UA");
+
+
+document.getElementById("baconStock").innerText=
+data.baconStock.toLocaleString("uk-UA")+" шт.";
+
+document.getElementById("saloStock").innerText=
+data.saloStock.toLocaleString("uk-UA")+" шт.";
+
+
+document.getElementById("stock").innerText=
+(
+data.baconStock+
+data.saloStock
+).toLocaleString("uk-UA");
+
+
+document.getElementById("balance").innerText=
+money(data.balance);
+
+document.getElementById("sales").innerText=
+data.sales.toLocaleString("uk-UA");
+
+document.getElementById("total").innerText=
+data.total.toLocaleString("uk-UA");
+
+document.getElementById("pigsHero").innerText=
+data.pigs;
+
+
+document.getElementById("level").innerText=
+data.level;
+
+document.getElementById("xp").innerText=
+data.xp+" / 100 XP";
+
+
+save();
+
+}
+
+
+function collectBacon(){
+
+if(data.baconReady<=0){
+alert("Бекон ще не готовий ⏳");
+return;
+}
+
+data.baconStock+=data.baconReady;
+data.baconReady=0;
+
+save();
+update();
+
+alert("Бекон на складі 📦");
+
+}
+
+
+function collectSalo(){
+
+if(data.saloReady<=0){
+alert("Сало ще не готове ⏳");
+return;
+}
+
+data.saloStock+=data.saloReady;
+data.saloReady=0;
+
+save();
+update();
+
+alert("Сало на складі 📦");
+
+}
+
+
+function openFarm(){
+
+openModal(
+"🐷 ФЕРМА",
+`
+<p>Кількість свиней</p>
+
+<input id="newPigs"
+type="number"
+value="${data.pigs}">
+
+<p>🥓 Ціна бекону</p>
+
+<input id="newBacon"
+type="number"
+value="${data.baconPrice}">
+
+<p>🧈 Ціна сала</p>
+
+<input id="newSalo"
+type="number"
+value="${data.saloPrice}">
+
+<button class="btn"
+onclick="saveFarm()">
+💾 ЗБЕРЕГТИ
+</button>
+`
+);
+
+}
+
+
+function saveFarm(){
+
+data.pigs=
+Number(document.getElementById("newPigs").value)||0;
+
+data.baconPrice=
+Number(document.getElementById("newBacon").value)||0;
+
+data.saloPrice=
+Number(document.getElementById("newSalo").value)||0;
+
+save();
+update();
+closeModal();
+
+}
+
+
+function openShop(){
+
+openModal(
+"🛒 ПРОДАЖ",
+`
+<p>🥓 Бекон</p>
+
+<p>
+На складі:
+<strong>${data.baconStock} шт.</strong>
+</p>
+
+<input id="sellBacon"
+type="number"
+placeholder="Кількість">
+
+<button class="btn"
+onclick="sellBacon()">
+💵 ПРОДАТИ БЕКОН
+</button>
+
+<hr>
+
+<p>🧈 Сало</p>
+
+<p>
+На складі:
+<strong>${data.saloStock} шт.</strong>
+</p>
+
+<input id="sellSalo"
+type="number"
+placeholder="Кількість">
+
+<button class="btn"
+onclick="sellSalo()">
+💵 ПРОДАТИ САЛО
+</button>
+`
+);
+
+}
+
+
+function sellBacon(){
+
+let qty=
+Number(document.getElementById("sellBacon").value)||0;
+
+if(qty<=0||qty>data.baconStock){
+alert("Недостатньо бекону ❗");
+return;
+}
+
+let moneyEarned=
+qty*data.baconPrice;
+
+data.baconStock-=qty;
+data.balance+=moneyEarned;
+data.sales+=moneyEarned;
+data.total+=moneyEarned;
+
+addXP(10);
+
+save();
+update();
+
+alert("Продано на "+money(moneyEarned)+" 💰");
+
+openShop();
+
+}
+
+
+function sellSalo(){
+
+let qty=
+Number(document.getElementById("sellSalo").value)||0;
+
+if(qty<=0||qty>data.saloStock){
+alert("Недостатньо сала ❗");
+return;
+}
+
+let moneyEarned=
+qty*data.saloPrice;
+
+data.saloStock-=qty;
+data.balance+=moneyEarned;
+data.sales+=moneyEarned;
+data.total+=moneyEarned;
+
+addXP(10);
+
+save();
+update();
+
+alert("Продано на "+money(moneyEarned)+" 💰");
+
+openShop();
+
+}
+
+
+function addXP(value){
+
+data.xp+=value;
+
+if(data.xp>=100){
+
+data.xp-=100;
+data.level++;
+
+alert("🎉 Новий рівень: "+data.level);
+
+}
+
+}
+
+
+function openWarehouse(){
+
+openModal(
+"📦 СКЛАД",
+`
+<div class="stock">
+🥓 Бекон
+<strong>${data.baconStock} шт.</strong>
+</div>
+
+<div class="stock">
+🧈 Сало
+<strong>${data.saloStock} шт.</strong>
+</div>
+`
+);
+
+}
+
+
+function openMoney(){
+
+openModal(
+"💰 ФІНАНСИ",
+`
+<div class="stock">
+Баланс
+<strong>${money(data.balance)}</strong>
+</div>
+
+<div class="stock">
+Продажі
+<strong>${money(data.total)}</strong>
+</div>
+
+<div class="stock">
+Рівень
+<strong>${data.level}</strong>
+</div>
+`
+);
+
+}
+
+
+function openProduction(){
+
+openModal(
+"⏱️ ВИРОБНИЦТВО",
+`
+<p>🥓 Бекон — кожні 30 хвилин</p>
+<p>🧈 Сало — кожні 2 години</p>
+
+<p>
+Бекон готово:
+<strong>${data.baconReady} шт.</strong>
+</p>
+
+<p>
+Сало готово:
+<strong>${data.saloReady} шт.</strong>
+</p>
+`
+);
+
+}
+
+
+function openModal(title,content){
+
+document.getElementById("modalTitle").innerText=title;
+document.getElementById("modalContent").innerHTML=content;
+document.getElementById("modal").style.display="block";
+
+}
+
+
+function closeModal(){
+
+document.getElementById("modal").style.display="none";
+
+}
+
+
+load();
+
+setInterval(update,1000);
 
 </script>
 
