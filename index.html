@@ -1,191 +1,694 @@
-<div class="auth-box">
+<!DOCTYPE html><html lang="uk"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krutow RP — Гра про Україну</title>
+    <link rel="icon" type="image/webp" href="images/logo.webp">
+    
+    <meta name="description" content="Найбільший RP-проєкт з атмосферою українських міст. Унікальна економіка, фракції та безліч можливостей.">
+    <meta name="keywords" content="Krutow RP, MTA SA, GTA San Andreas, RP сервер, roleplay, Україна">
+    
+    <meta property="og:title" content="Krutow RP — Гра про Україну">
+    <meta property="og:description" content="Найбільший RP-проєкт з атмосферою українських міст">
+    <meta property="og:url" content="https://krutow-rp.pp.ua">
+    
+    <link rel="stylesheet" href="css/main9.css">
+    <link rel="stylesheet" href="/css/main_v_4.css">
+    <link rel="stylesheet" href="/css/fm.revealator.jquery_v_4.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.min.css">
 
-    <h2>🔐 MTA HUB</h2>
-    <p>Вхід або реєстрація</p>
+    <style>
+        .hero {
+            overflow: hidden;
+            position: relative;
+        }
+        .hero-content.hero-centered {
+            position: relative;
+            z-index: 5;
+        }
+        .server-monitor {
+            margin: 0 auto 22px;
+            width: 100%;
+            max-width: 560px;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(180deg, rgba(22, 24, 30, 0.92) 0%, rgba(10, 11, 15, 0.92) 100%);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+        }
+        .server-monitor__title {
+            margin: 0 0 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #f2f4fb;
+            opacity: 0.95;
+        }
+        .server-monitor__item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .server-monitor__left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: #f8f9fc;
+        }
+        .server-monitor__dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #8f95a3;
+            box-shadow: 0 0 8px rgba(143, 149, 163, 0.7);
+        }
+        .server-monitor__dot.online {
+            background: #16c172;
+            box-shadow: 0 0 10px rgba(22, 193, 114, 0.9);
+        }
+        .server-monitor__count--offline {
+            color: #aeb8ce;
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.08);
+            font-weight: 600;
+        }
+        .hero-players-pill__dot.is-offline {
+            background: #8f95a3;
+            box-shadow: 0 0 8px rgba(143, 149, 163, 0.55);
+        }
+        .server-monitor__count {
+            font-weight: 700;
+            color: #ffffff;
+            background: rgba(30, 34, 44, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 13px;
+        }
+        .server-monitor__badge {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            color: #aeb8ce;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-    <div id="phoneStep">
-
-        <input
-            id="phone"
-            type="tel"
-            placeholder="+380XXXXXXXXX"
-        >
-
-        <button onclick="sendCode()">
-            Отримати код
-        </button>
-
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-particles" id="loadingParticles"></div>
+        <div class="loading-orbs">
+            <div class="loading-orb"></div>
+            <div class="loading-orb"></div>
+            <div class="loading-orb"></div>
+        </div>
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span class="logo-text">Krutow</span><span class="logo-accent">RP</span>
+            </div>
+            <div class="loading-subtitle">Гра про Україну</div>
+            <div class="loading-bar-container">
+                <div class="loading-bar">
+                    <div class="loading-progress" id="loadingProgress"></div>
+                </div>
+                <div class="loading-percentage" id="loadingPercentage">0%</div>
+            </div>
+            <div class="loading-text" id="loadingText">Ініціалізація...</div>
+            <div class="loading-tips">
+                <div class="loading-tip active">💡 Порада: вивчи карту міста, щоб швидше орієнтуватися</div>
+                <div class="loading-tip">🎯 Порада: обери професію до душі для кращого заробітку</div>
+                <div class="loading-tip">👥 Порада: приєднуйся до фракцій заради нових можливостей</div>
+                <div class="loading-tip">💰 Порада: інвестуй у нерухомість для пасивного доходу</div>
+                <div class="loading-tip">🏆 Порада: бері участь у турнірах за ексклюзивні нагороди</div>
+            </div>
+        </div>
     </div>
 
-    <div id="codeStep" style="display:none;">
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <nav class="nav" id="nav">
+                    <a href="#home" class="nav-link active">Головна</a>
+                    <a href="#about" class="nav-link">Форум</a>
+                    <a href="#features" class="nav-link">Ігровий магазин</a>
+                    <a href="#news" class="nav-link">Wiki</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <div class="social-links">
+                        <a href="" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                    <a href="cabinet/login.php" class="btn btn-outline">Особистий кабінет</a>
+                </div>
+                
+                <button class="mobile-toggle" id="mobileToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-        <input
-            id="code"
-            type="text"
-            maxlength="6"
-            placeholder="Введи SMS-код"
-        >
+    <section class="hero" id="home">
+        <div class="pxl">
+            <div id="scene">
+                <div class="slide-main__bg" data-depth="0.2"></div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content hero-centered">
+                <div class="hero-head">
 
-        <button onclick="verifyCode()">
-            Увійти
-        </button>
+
+                    <h1 class="hero-title">
+                        <span class="hero-title-brand">
+                            <span class="title-line">Krutow</span><span class="title-line accent">RP</span>
+                        </span>
+                        <span class="title-subtitle">Гра про Україну</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Поринь в атмосферу українських вулиць на проєкті Krutow RP.
+                        Унікальна економіка, безліч фракцій і нескінченні можливості для розвитку.
+                    </p>
+                </div>
+
+                <div class="hero-main-visual hero-main-visual--featured">
+                    <div class="hero-img-stack">
+                        <img src="images/main-img.png" alt="Krutow RP" class="hero-main-img" loading="eager">
+
+                        <div class="hero-under-img">
+                            <div class="hero-players-pill">
+                                <span class="hero-players-pill__dot" aria-hidden="true"></span>
+                                <span class="hero-players-pill__text"><strong>1111+</strong> активних гравців</span>
+                            </div>
+
+                            <div class="hero-actions custom-hero-actions hero-actions-below hero-actions-ugta">
+                                <a href="#download" class="btn-hero-cta btn-hero-cta--ugta">
+                                    <span class="btn-hero-cta__icon" aria-hidden="true"></span>
+                                    <span class="btn-hero-cta__text">Розпочати гру</span>
+                                </a>
+
+                                <a href="#about" class="btn-hero-secondary btn-hero-secondary--ugta">
+                                    <span class="btn-hero-secondary__icon-wrap" aria-hidden="true"><i class="fas fa-circle-info"></i></span>
+                                    <span class="btn-hero-secondary__text">Дізнатись більше</span>
+                                </a>
+                            </div>
+
+                            <p class="hero-platform-note">
+                                <i class="fab fa-windows" aria-hidden="true"></i>
+                                <span>Доступно тільки для Windows</span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="server-monitor" id="serverMonitor">
+                <p class="server-monitor__title">Моніторинг серверів</p>
+                <div class="server-monitor__item">
+                    <div class="server-monitor__left">
+                        <span class="server-monitor__dot" id="server1Dot"></span>
+                        <span>Центральна україна</span>
+                        <span class="server-monitor__badge">MTA</span>
+                    </div>
+                    <span class="server-monitor__count" id="server1Online">--/--</span>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <div class="section-badge">Про проєкт</div>
+                <h2 class="section-title">Чому обирають Krutow RP?</h2>
+                <p class="section-description">
+                    Ми створили унікальний ігровий всесвіт, де кожен знайде щось для себе
+                </p>
+            </div>
+            <section class="launcher-features">
+    <div class="container">
+        <div class="cards-grid">
+            
+            <div class="feature-card dark-card">
+                <div class="card-text">
+                    <h3>В нас на сервері ти також можеш стати<br>лідером клану<br> <span class="text-gray"></span></h3>
+                </div>
+                <div class="card-img-wrapper">
+                    <img src="images/guys.png" alt="GTA Mod" class="card-img">
+                </div>
+            </div>
+
+            <div class="feature-card dark-card">
+                <div class="card-text">
+                    <h3>Унікальні фракції<br><span class="text-gray"></span></h3>
+                </div>
+                <div class="card-img-wrapper">
+                    <img src="images/gunman.png" alt="GTA Servers" class="card-img">
+                </div>
+            </div>
+
+            <div class="feature-card dark-card">
+                <div class="card-text">
+                    <h3><span class="text-gray">Оптимізація</span></h3>
+                </div>
+                <div class="card-img-wrapper">
+                    <img src="images/mic.png" alt="Voice Chat" class="card-img">
+                </div>
+            </div>
+
+            <div class="feature-card red-card">
+                <a href="#download" class="download-trigger">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 16L7 11L8.4 9.55L11 12.15V4H13V12.15L15.6 9.55L17 11L12 16ZM6 20C5.45 20 4.97917 19.8042 4.5875 19.4125C4.19583 19.0208 4 18.55 4 18V15H6V18H18V15H20V18C20 18.55 19.8042 19.0208 19.4125 19.4125C19.0208 19.8042 18.55 20 18 20H6Z" fill="white"></path>
+                    </svg>
+                    <span>Завантажити гру</span>
+                </a>
+                
+                <div class="play-button-wrapper">
+                    <div class="play-inner">
+                        <div class="play-triangle"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+            <div class="about-grid">
+                <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-icon">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3>Реалістичний світ</h3>
+                    <p>Детально пророблені українські міста з упізнаваними локаціями</p>
+                </div>
+                
+                <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Активна спільнота</h3>
+                    <p>Багато зареєстрованих гравців і рп на вищому рівні</p>
+                </div>
+                
+                <div class="about-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Унікальні системи</h3>
+                    <p>Власні розробки: фракції, роботи та розваги</p>
+                </div>
+                
+                <div class="about-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Підтримка</h3>
+                    <p>Технічна пітримка в телеграмі готова допомогти вам з будь якіми проблемами</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Можливості</div>
+                <h2 class="section-title">Що тебе чекає в грі?</h2>
+            </div>
+            
+            <div class="features-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="jobs">Роботи</button>
+                    <button class="tab-btn" data-tab="factions">Фракції</button>
+                    <button class="tab-btn" data-tab="business">Бізнес</button>
+                    <button class="tab-btn" data-tab="entertainment">Розваги</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-panel active" id="jobs">
+                        <div class="feature-showcase">
+                            <div class="showcase-image">
+                                <img src="images/work.png" alt="Роботи">
+                            </div>
+                            <div class="showcase-content">
+                                <h3>Різноманітні професії</h3>
+                                <p>Обери роботу до душі: від таксиста до бізнесмена. Кожна професія має свої особливості та можливості заробітку.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-check"></i> 10+ різних професій</li>
+                                    <li><i class="fas fa-check"></i> Різні зарплати для кожної професії</li>
+                                    <li><i class="fas fa-check"></i> Унікальні завдання для кожної роботи</li>
+                                    <li><i class="fas fa-check"></i> Можливість зміни професії</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="factions">
+                        <div class="feature-showcase">
+                            <div class="showcase-image">
+                                <img src="images/fraction.png" alt="Фракції">
+                            </div>
+                            <div class="showcase-content">
+                                <h3>Система фракцій</h3>
+                                <p>Приєднуйся до однієї з фракцій і бері участь у захопливих війнах за території та вплив.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-check"></i> 8+ унікальних фракцій</li>
+                                    <li><i class="fas fa-check"></i> Система рангів і привілеїв</li>
+                                    <li><i class="fas fa-check"></i> Іерархія в кожній фракції</li>
+                                    <li><i class="fas fa-check"></i> Фракційні завдання</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="business">
+                        <div class="feature-showcase">
+                            <div class="showcase-image">
+                                <img src="images/biznes.png" alt="Бізнес">
+                            </div>
+                            <div class="showcase-content">
+                                <h3>Бізнеси</h3>
+                                <p>Купи свій бізнес який буде тобі приносит:</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-check"></i> Стабільний дохід</li>
+                                    <li><i class="fas fa-check"></i> Різні види бізнесу</li>
+                                    <li><i class="fas fa-check"></i> Система інвестицій</li>
+                                    <li><i class="fas fa-check"></i> Управління бізнесом</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="entertainment">
+                        <div class="feature-showcase">
+                            <div class="showcase-image">
+                                <div class="entertainment-slider">
+                                    <div class="slider-container">
+                                        <div class="slide active">
+                                            <img src="images/slide1.webp" alt="Дослідження світу">
+                                        </div>
+                                        <div class="slide">
+                                            <img src="images/slide2.webp" alt="Пригоди">
+                                        </div>
+                                        <div class="slide">
+                                            <img src="images/slide3.webp" alt="Відкриття">
+                                        </div>
+                                        <div class="slide">
+                                            <img src="slide1.webp" alt="Розваги">
+                                        </div>
+                                        <div class="slide">
+                                            <img src="slide2.webp" alt="Події">
+                                        </div>
+                                        <div class="slide">
+                                            <img src="slide3.webp" alt="Турніри">
+                                        </div>
+                                    </div>
+                                    <div class="slider-controls">
+                                        <button class="slider-btn prev" onclick="changeSlide(-1)">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <button class="slider-btn next" onclick="changeSlide(1)">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="slider-dots">
+                                        <span class="dot active" onclick="currentSlide(1)"></span>
+                                        <span class="dot" onclick="currentSlide(2)"></span>
+                                        <span class="dot" onclick="currentSlide(3)"></span>
+                                        <span class="dot" onclick="currentSlide(4)"></span>
+                                        <span class="dot" onclick="currentSlide(5)"></span>
+                                        <span class="dot" onclick="currentSlide(6)"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="showcase-content">
+                                <h3>Розваги</h3>
+                                <p>Відпочивай і розважайся: казино, гонки, турніри, події та багато іншого.</p>
+                                <ul class="feature-list">
+                                    <li><i class="fas fa-check"></i> Щотижневі турніри</li>
+                                    <li><i class="fas fa-check"></i> Казино та азартні ігри</li>
+                                    <li><i class="fas fa-check"></i> Автогонки та дрифт</li>
+                                    <li><i class="fas fa-check"></i> Святкові події</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="news" id="news">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Новини</div>
+                <h2 class="section-title">Останні оновлення</h2>
+            </div>
+            
+            <div class="news-grid">
+                <article class="news-card featured" data-aos="fade-up">
+                    <div class="news-image">
+                        <img src="assets/news/news1.webp" alt="Нове оновлення">
+                        <div class="news-badge">Важливо</div>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date">хх.04.2026</span>
+                            <span class="news-category">Відкриття</span>
+                        </div>
+                        <h3>Відкриття нашого 1 серверу</h3>
+                        <p>Нові локації, покращена графіка, додаткові можливості для гравців і не тільки.</p>
+                        <a href="#" class="news-link">Читати далі</a>
+                    </div>
+                </article>
+                
+                <article class="news-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="news-image">
+                        <img src="assets/news/news2.webp" alt="Турнір">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date">хх.04.2026</span>
+                            <span class="news-category">Оновлення сайту</span>
+                        </div>
+                        <h3>Сайт на вищому рівні</h3>
+                        <p>Оновлення на сайті в особистому кабінеті та на форумі.</p>
+                        <a href="#" class="news-link">Читати далі</a>
+                    </div>
+                </article>
+                
+                <article class="news-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="news-image">
+                        <img src="assets/news/news3.webp" alt="Нові можливості">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date">хх.04.2026</span>
+                            <span class="news-category">Збільшення можливостей в лаунчері</span>
+                        </div>
+                        <h3>Нові функції</h3>
+                        <p>Додано нові функції в налаштуваннях лаунчеру.</p>
+                        <a href="#" class="news-link">Читати далі</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="download" id="download">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-left">
+                    <div class="section-badge">Завантажити</div>
+                    <h2 class="section-title">Почни грати вже зараз</h2>
+                    <p class="section-description">
+                        Завантаж лаунчер гри та приєднуйся до тисяч гравців у захопливому світі Krutow RP
+                    </p>
+                    
+                    <div class="download-features">
+                        <div class="download-feature">
+                            <i class="fas fa-download"></i>
+                            <span>Швидке встановлення</span>
+                        </div>
+                        <div class="download-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Безпечно й надійно</span>
+                        </div>
+                        <div class="download-feature">
+                            <i class="fas fa-sync"></i>
+                            <span>Автоматичні оновлення</span>
+                        </div>
+                    </div>
+                    
+                    <div class="download-actions">
+                        <a href="#" class="btn btn-primary btn-large download-btn">
+                            <i class="fas fa-download"></i>
+                            <span>Завантажити клієнт</span>
+                            <small>Windows 10/11</small>
+                        </a>
+                        <div class="download-info">
+                            <span>Розмір: 2.1 ГБ</span>
+                            <span>Версія: 2.5.0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="download-right">
+                    <div class="system-requirements">
+                        <h3>Системні вимоги</h3>
+                        <div class="requirements-tabs">
+                            <button class="req-tab active" data-req="min">Мінімальні</button>
+                            <button class="req-tab" data-req="rec">Рекомендовані</button>
+                        </div>
+                        <div class="requirements-content">
+                            <div class="req-panel active" id="min">
+                                <div class="req-item">
+                                    <span class="req-label">ОС:</span>
+                                    <span class="req-value">Windows 10</span>
+                                </div>
+                                <div class="req-item">
+                                    <span class="req-label">Процесор:</span>
+                                    <span class="req-value">Intel Core i3 / AMD FX-6300</span>
+                                </div>
+                                <div class="req-item">
+                                    <span class="req-label">Пам’ять:</span>
+                                    <span class="req-value">4 ГБ ОЗУ</span>
+                                </div>
+                                <div class="req-item">
+                                    <span class="req-label">Відеокарта:</span>
+                                    <span class="req-value">GTX 750 Ti / RX 460</span>
+                                </div>
+                                <div class="req-item">
+                                    <span class="req-label">Місце на диску:</span>
+                                    <span class="req-value">5 ГБ</span>
+                                </div>
+                            </div>
+                            <div class="req-panel" id="rec">
+                                <div class="req-item">
+                                    <span class="req-label">ОС:</span>
+                                    <span class="req-value">Windows 11</span>
+                                </div>
+                                <div class="req-item">
+                                    <span class="req-label">Процесор:</span>
+                                    <span class="req-value">Intel Core i5 / AMD Ryzen 5</span>
+                                </div>
+                                <div class="req-item">
+                                    <span class="req-label">Пам’ять:</span>
+                                    <span class="req-value">8 ГБ ОЗУ</span>
+                                </div>
+                                <div class="req-item">
+                                    <span class="req-label">Відеокарта:</span>
+                                    <span class="req-value">GTX 1060 / RX 580</span>
+                                </div>
+                                <div class="req-item">
+                                    <span class="req-label">Місце на диску:</span>
+                                    <span class="req-value">10 ГБ SSD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+    <div class="container footer-wrapper">
+        
+        <div class="footer-info">
+            <img src="images/logo.webp" alt="Krutow RP" class="footer-logo-img">
+            <div class="footer-legal-text">
+                Проєкт «Krutow RP»<br>
+                Усі права захищено © 2026
+            </div>
+        </div>
+
+        <div class="footer-nav-container">
+            <div class="footer-nav-col">
+                <h4>ГРАВЦЯМ</h4>
+                <a href="index.php#download">Почати грати</a>
+                <a href="donate/donate.php">Поповнити рахунок</a>
+                <a href="https://forum-krutow-rp.pp.ua/index.php">Форум</a>
+            </div>
+
+            <div class="footer-nav-col">
+                <h4>ВАЖЛИВА ІНФОРМАЦІЯ</h4>
+                <a href="/terms/">Угода користувача</a>
+                <a href="/offert/">Правила користування</a>
+                <a href="/privacy/">Політика конфіденційності</a>
+            </div>
+
+            <div class="footer-nav-col">
+                <h4>КОНТАКТИ</h4>
+                <span>Підтримка в Discord</span>
+                <a href="/cdn-cgi/l/email-protection#61121411110e1315210a1314150e164c13114f11114f1400" class="footer-email"><span class="__cf_email__" data-cfemail="0a797f7a7a65787e4a61787f7e657d27787a247a7a247f6b">[email protected]</span></a>
+            </div>
+        </div>
+
+        <div class="footer-right">
+            <div class="payment-methods-row">
+                <div class="pay-badge">VISA</div>
+                <div class="pay-badge">MC</div>
+                <div class="pay-badge">Privat24</div>
+                <div class="pay-badge">Mono</div>
+            </div>
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <span>Сервери Krutow RP онлайн</span>
+            </div>
+        </div>
 
     </div>
+</footer>
 
-    <p id="message"></p>
+    <div class="cookie-notice" id="cookieNotice">
+        <div class="cookie-content">
+            <div class="cookie-icon">
+                <i class="fas fa-cookie-bite"></i>
+            </div>
+            <div class="cookie-text">
+                <span>Мы используем cookie</span>
+                <p>для улучшения работы сайта и персонализации контента</p>
+            </div>
+            <button class="cookie-btn" id="acceptCookies">OK</button>
+        </div>
+    </div>
 
-</div>
-
-<style>
-
-.auth-box {
-    width: 360px;
-    max-width: 90%;
-    margin: 100px auto;
-    padding: 30px;
-    background: #101520;
-    border: 1px solid #263149;
-    border-radius: 18px;
-    text-align: center;
-    color: white;
-}
-
-.auth-box h2 {
-    margin-bottom: 10px;
-}
-
-.auth-box p {
-    color: #8e99ac;
-    margin-bottom: 20px;
-}
-
-.auth-box input {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-    border: 1px solid #303b52;
-    background: #080b12;
-    color: white;
-    outline: none;
-}
-
-.auth-box button {
-    width: 100%;
-    padding: 14px;
-    border: 0;
-    border-radius: 10px;
-    background: #4da3ff;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.auth-box button:hover {
-    opacity: .85;
-}
-
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-
-const SUPABASE_URL = "ВСТАВ_ТУТ_PROJECT_URL";
-
-const SUPABASE_KEY = "ВСТАВ_ТУТ_PUBLISHABLE_KEY";
-
-const supabaseClient =
-    supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-async function sendCode() {
-
-    const phone =
-        document.getElementById("phone").value.trim();
-
-    const message =
-        document.getElementById("message");
-
-    if (!phone) {
-        message.innerText =
-            "Введи номер телефону";
-        return;
-    }
-
-    message.innerText =
-        "Надсилаємо код...";
-
-    const { error } =
-        await supabaseClient.auth.signInWithOtp({
-            phone: phone
+    <script data-cfasync="false" src="js/email-decode.min.js"></script><script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/parallax_v_4.js"></script>
+    <script src="js/fm.revealator.jquery.min_v_4.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Инициализация параллакса фона
+        $(document).ready(function() {
+            var scene = document.getElementById('scene');
+            if (scene) {
+                var parallaxInstance = new Parallax(scene);
+            }
         });
+    </script>
 
-    if (error) {
-
-        message.innerText =
-            "Помилка: " + error.message;
-
-        return;
-    }
-
-    document.getElementById("phoneStep")
-        .style.display = "none";
-
-    document.getElementById("codeStep")
-        .style.display = "block";
-
-    message.innerText =
-        "SMS-код надіслано 📱";
-}
-
-
-async function verifyCode() {
-
-    const phone =
-        document.getElementById("phone").value.trim();
-
-    const code =
-        document.getElementById("code").value.trim();
-
-    const message =
-        document.getElementById("message");
-
-    if (!code) {
-
-        message.innerText =
-            "Введи код із SMS";
-
-        return;
-    }
-
-    const { data, error } =
-        await supabaseClient.auth.verifyOtp({
-            phone: phone,
-            token: code,
-            type: "sms"
-        });
-
-    if (error) {
-
-        message.innerText =
-            "Невірний код";
-
-        return;
-    }
-
-    message.innerText =
-        "✅ Успішний вхід!";
-
-    setTimeout(() => {
-
-        window.location.href =
-            "profile.html";
-
-    }, 1000);
-}
-
-</script>
+</body></html>
