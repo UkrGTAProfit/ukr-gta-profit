@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b10">
+<title>Ukr GTA Cabinet</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#070a0f;color:#f5f7fb;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.app{max-width:1100px;margin:auto;padding:18px 14px 70px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.logo{font-size:27px;font-weight:900}.blue{color:#67a0ff}.muted{color:#8996a8}
+.layout{display:grid;grid-template-columns:225px 1fr;gap:14px}.sidebar,.card{background:#101721;border:1px solid #263241;border-radius:20px}
+.sidebar{padding:10px;height:max-content}.nav{width:100%;text-align:left;border:0;background:transparent;color:#b9c5d4;padding:13px;border-radius:12px;font-weight:800;cursor:pointer;margin:3px 0}.nav.active,.nav:hover{background:#2f72e5;color:#fff}
+.content{min-width:0}.hero{padding:22px;border-radius:20px;background:linear-gradient(135deg,#142642,#0e151f);border:1px solid #2b405c;margin-bottom:14px}
+.hero h1{margin:0 0 6px;font-size:30px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{padding:16px;background:#0b1017;border:1px solid #263241;border-radius:16px}.small{font-size:11px;color:#8996a8;letter-spacing:.5px}.big{font-size:23px;font-weight:900;margin-top:6px}
+.card{padding:18px;margin-bottom:14px}h2{margin:0 0 14px}.toolbar{display:flex;gap:9px;margin-bottom:12px}.toolbar>*{flex:1}
+input,select{width:100%;padding:12px;border-radius:12px;border:1px solid #2a394a;background:#080d13;color:white}
+.property-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.property{overflow:hidden;border:1px solid #293747;background:#0b1017;border-radius:16px}
+.property-img{height:145px;background:linear-gradient(135deg,#1d2b3c,#0d1219);display:flex;align-items:center;justify-content:center;font-size:52px}
+.property-body{padding:14px}.price{font-size:20px;font-weight:900;color:#67a0ff;margin-top:8px}.tag{display:inline-block;margin:6px 5px 0 0;padding:5px 8px;border-radius:8px;background:#172331;color:#aebbd0;font-size:11px}
+.btn{border:0;border-radius:11px;padding:11px 13px;background:#2f72e5;color:#fff;font-weight:800;cursor:pointer;margin-top:10px}.green{color:#35df91}.gold{color:#ffd05b}
+.hidden{display:none}.list{display:grid;gap:9px}.listitem{padding:13px;background:#0b1017;border:1px solid #263241;border-radius:14px;display:flex;justify-content:space-between;gap:10px}
+@media(max-width:750px){.layout{grid-template-columns:1fr}.sidebar{display:flex;overflow:auto;gap:4px}.nav{white-space:nowrap;width:auto}.grid{grid-template-columns:1fr 1fr}.property-grid{grid-template-columns:1fr}.top{align-items:flex-start;gap:6px;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top"><div class="logo">💎 Ukr GTA <span class="blue">CABINET</span></div><div class="muted">Особистий кабінет</div></div>
+<div class="layout">
+<aside class="sidebar">
+<button class="nav active" onclick="showPage('home',this)">🏠 Головна</button>
+<button class="nav" onclick="showPage('property',this)">🏡 Нерухомість</button>
+<button class="nav" onclick="showPage('cars',this)">🚗 Автомобілі</button>
+<button class="nav" onclick="showPage('business',this)">💼 Бізнеси</button>
+<button class="nav" onclick="showPage('profile',this)">👤 Профіль</button>
+</aside>
+
+<main class="content">
+<section id="home">
+<div class="hero"><h1>Вітаємо в кабінеті 👋</h1><div class="muted">Керуй своїм майном та дивись статистику в одному місці.</div></div>
+<div class="grid">
+<div class="stat"><div class="small">БАЛАНС</div><div class="big green">15 000 000 ₴</div></div>
+<div class="stat"><div class="small">НЕРУХОМІСТЬ</div><div class="big">3</div></div>
+<div class="stat"><div class="small">АВТО</div><div class="big">5</div></div>
+</div>
+<div class="card"><h2>📌 Швидкий доступ</h2><div class="list">
+<div class="listitem"><span>🏡 Моя нерухомість</span><b>3 об'єкти</b></div>
+<div class="listitem"><span>🚗 Мої автомобілі</span><b>5 авто</b></div>
+<div class="listitem"><span>💼 Мої бізнеси</span><b>2 бізнеси</b></div>
+</div></div>
+</section>
+
+<section id="property" class="hidden">
+<div class="card"><h2>🏡 Нерухомість</h2>
+<div class="toolbar"><input id="search" placeholder="🔎 Пошук нерухомості" oninput="filterProperties()"><select id="city" onchange="filterProperties()"><option value="all">Всі міста</option><option>Київ</option><option>Дніпро</option><option>Львів</option></select></div>
+<div id="properties" class="property-grid"></div>
+</div>
+</section>
+
+<section id="cars" class="hidden"><div class="card"><h2>🚗 Автомобілі</h2><div class="property-grid">
+<div class="property"><div class="property-img">🚘</div><div class="property-body"><b>Mercedes-Benz S-Class</b><div class="muted">Особистий транспорт</div><span class="tag">Гараж</span></div></div>
+<div class="property"><div class="property-img">🏎️</div><div class="property-body"><b>LaFerrari</b><div class="muted">Спорткар</div><span class="tag">Гараж</span></div></div>
+<div class="property"><div class="property-img">🚙</div><div class="property-body"><b>Mercedes Sprinter</b><div class="muted">Комерційний транспорт</div><span class="tag">Kotik Logistics</span></div></div>
+</div></div></section>
+
+<section id="business" class="hidden"><div class="card"><h2>💼 Бізнеси</h2><div class="property-grid">
+<div class="property"><div class="property-img">🏪</div><div class="property-body"><b>Магазин</b><div class="muted">Київ • працює</div><div class="price">+250 000 ₴ / день</div><span class="tag">Активний</span></div></div>
+<div class="property"><div class="property-img">⛽</div><div class="property-body"><b>АЗС</b><div class="muted">Дніпро • працює</div><div class="price">+420 000 ₴ / день</div><span class="tag">Активний</span></div></div>
+</div></div></section>
+
+<section id="profile" class="hidden"><div class="card"><h2>👤 Профіль гравця</h2><div class="grid">
+<div class="stat"><div class="small">НІК</div><div class="big">Артур</div></div>
+<div class="stat"><div class="small">РІВЕНЬ</div><div class="big gold">29</div></div>
+<div class="stat"><div class="small">СЕРВЕР</div><div class="big">1</div></div>
+</div></div></section>
+</main>
+</div></div>
+
+<script>
+const properties=[
+{name:"Будинок №64",city:"Київ",price:15000000,icon:"🏠",type:"Luxe"},
+{name:"Квартира №128",city:"Дніпро",price:4200000,icon:"🏢",type:"Premium"},
+{name:"Будинок №22",city:"Львів",price:7800000,icon:"🏡",type:"Business"},
+{name:"Квартира №51",city:"Київ",price:3100000,icon:"🏙️",type:"Comfort"},
+{name:"Будинок №91",city:"Дніпро",price:9800000,icon:"🏠",type:"Luxe"},
+{name:"Квартира №33",city:"Львів",price:2600000,icon:"🏢",type:"Comfort"}
+];
+const money=n=>n.toLocaleString("uk-UA")+" ₴";
+function renderProperties(list=properties){
+document.getElementById("properties").innerHTML=list.map(p=>`
+<div class="property"><div class="property-img">${p.icon}</div><div class="property-body">
+<b>${p.name}</b><div class="muted">📍 ${p.city}</div><span class="tag">${p.type}</span><span class="tag green">Вільно</span>
+<div class="price">${money(p.price)}</div><button class="btn" onclick="alert('Обрано: ${p.name}\\nЦіна: ${money(p.price)}')">Детальніше</button>
+</div></div>`).join("");
+}
+function filterProperties(){
+const q=document.getElementById("search").value.toLowerCase(),c=document.getElementById("city").value;
+renderProperties(properties.filter(p=>(p.name.toLowerCase().includes(q)||p.city.toLowerCase().includes(q))&&(c==="all"||p.city===c)));
+}
+function showPage(id,btn){
+document.querySelectorAll(".content>section").forEach(s=>s.classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+document.querySelectorAll(".nav").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+}
+renderProperties();
+</script>
+</body>
+</html>
