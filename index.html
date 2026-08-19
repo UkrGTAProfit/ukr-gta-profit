@@ -1,410 +1,191 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MTA HUB</title>
+<div class="auth-box">
+
+    <h2>🔐 MTA HUB</h2>
+    <p>Вхід або реєстрація</p>
+
+    <div id="phoneStep">
+
+        <input
+            id="phone"
+            type="tel"
+            placeholder="+380XXXXXXXXX"
+        >
+
+        <button onclick="sendCode()">
+            Отримати код
+        </button>
+
+    </div>
+
+    <div id="codeStep" style="display:none;">
+
+        <input
+            id="code"
+            type="text"
+            maxlength="6"
+            placeholder="Введи SMS-код"
+        >
+
+        <button onclick="verifyCode()">
+            Увійти
+        </button>
+
+    </div>
+
+    <p id="message"></p>
+
+</div>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
 
-body {
-    background: #080b12;
-    color: white;
-}
-
-header {
-    height: 70px;
-    background: #0e121c;
-    border-bottom: 1px solid #202636;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 6%;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-.logo {
-    font-size: 25px;
-    font-weight: 800;
-    color: #4da3ff;
-}
-
-.logo span {
-    color: white;
-}
-
-nav {
-    display: flex;
-    gap: 25px;
-}
-
-nav a {
-    color: #aeb7c8;
-    text-decoration: none;
-    transition: .2s;
-}
-
-nav a:hover {
-    color: #4da3ff;
-}
-
-.hero {
-    padding: 90px 6%;
-    text-align: center;
-    background:
-        radial-gradient(circle at top, #17345a 0%, #080b12 55%);
-}
-
-.hero h1 {
-    font-size: 58px;
-    margin-bottom: 15px;
-}
-
-.hero h1 span {
-    color: #4da3ff;
-}
-
-.hero p {
-    color: #9da7b8;
-    font-size: 18px;
-    margin-bottom: 30px;
-}
-
-.button {
-    display: inline-block;
-    padding: 14px 28px;
-    background: #4da3ff;
-    color: white;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 0 25px rgba(77,163,255,.25);
-}
-
-.container {
-    width: 88%;
-    max-width: 1200px;
-    margin: 50px auto;
-}
-
-.title {
-    font-size: 30px;
-    margin-bottom: 25px;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.card {
+.auth-box {
+    width: 360px;
+    max-width: 90%;
+    margin: 100px auto;
+    padding: 30px;
     background: #101520;
-    border: 1px solid #202838;
-    border-radius: 16px;
-    padding: 25px;
-    transition: .25s;
+    border: 1px solid #263149;
+    border-radius: 18px;
+    text-align: center;
+    color: white;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: #4da3ff;
-}
-
-.icon {
-    font-size: 38px;
-    margin-bottom: 15px;
-}
-
-.card h3 {
+.auth-box h2 {
     margin-bottom: 10px;
 }
 
-.card p {
-    color: #929cad;
-    line-height: 1.5;
+.auth-box p {
+    color: #8e99ac;
+    margin-bottom: 20px;
 }
 
-.server {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #101520;
-    border: 1px solid #202838;
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 14px;
+.auth-box input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid #303b52;
+    background: #080b12;
+    color: white;
+    outline: none;
 }
 
-.server-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.server-logo {
-    width: 50px;
-    height: 50px;
+.auth-box button {
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: 10px;
     background: #4da3ff;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: white;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.online {
-    color: #4dff88;
+.auth-box button:hover {
+    opacity: .85;
 }
 
-footer {
-    margin-top: 80px;
-    padding: 30px;
-    text-align: center;
-    color: #687286;
-    border-top: 1px solid #202636;
-}
-
-@media(max-width:800px) {
-    .cards {
-        grid-template-columns: 1fr;
-    }
-
-    nav {
-        display: none;
-    }
-
-    .hero h1 {
-        font-size: 40px;
-    }
-}
 </style>
-</head>
 
-<body>
-
-<header>
-    <div class="logo">MTA <span>HUB</span></div>
-
-    <nav>
-        <a href="#">Головна</a>
-        <a href="#servers">Сервери</a>
-        <a href="#cars">Автомобілі</a>
-        <a href="#jobs">Роботи</a>
-        <a href="#calculator">Калькулятор</a>
-    </nav>
-</header>
-
-<section class="hero">
-    <h1>Твій <span>MTA</span> портал</h1>
-
-    <p>
-        Сервери, автомобілі, роботи, економіка та корисні калькулятори
-        в одному місці.
-    </p>
-
-    <a href="#servers" class="button">Переглянути сервери</a>
-</section>
-
-<section class="container" id="servers">
-
-    <h2 class="title">🔥 Сервери MTA</h2>
-
-    <div class="server">
-
-        <div class="server-info">
-
-            <div class="server-logo">
-                MTA
-            </div>
-
-            <div>
-                <h3>MTA Ukraine RP</h3>
-                <p>RolePlay сервер</p>
-            </div>
-
-        </div>
-
-        <div class="online">
-            ● 842 онлайн
-        </div>
-
-    </div>
-
-    <div class="server">
-
-        <div class="server-info">
-
-            <div class="server-logo">
-                RP
-            </div>
-
-            <div>
-                <h3>Ukraine Life</h3>
-                <p>Real Life / RP</p>
-            </div>
-
-        </div>
-
-        <div class="online">
-            ● 527 онлайн
-        </div>
-
-    </div>
-
-</section>
-
-<section class="container" id="cars">
-
-    <h2 class="title">🚗 Автомобілі</h2>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="icon">🏎️</div>
-            <h3>Спортивні</h3>
-            <p>
-                Ferrari, Lamborghini, Porsche та інші швидкі автомобілі.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🚘</div>
-            <h3>Бізнес</h3>
-            <p>
-                Преміальні автомобілі для багатих персонажів.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🚚</div>
-            <h3>Робочі</h3>
-            <p>
-                Вантажівки, фури, автобуси та спеціальний транспорт.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="container" id="jobs">
-
-    <h2 class="title">💼 Роботи</h2>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="icon">🚕</div>
-            <h3>Таксист</h3>
-            <p>Розраховуй прибуток від поїздок.</p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🚛</div>
-            <h3>Далекобійник</h3>
-            <p>Доставка вантажів між містами.</p>
-        </div>
-
-        <div class="card">
-            <div class="icon">📦</div>
-            <h3>Кур'єр</h3>
-            <p>Швидка доставка та оплата за замовлення.</p>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="container" id="calculator">
-
-    <h2 class="title">💰 Калькулятор доходу</h2>
-
-    <div class="card">
-
-        <p style="margin-bottom:15px;">
-            Скільки заробляєш за одну роботу?
-        </p>
-
-        <input
-            id="money"
-            type="number"
-            placeholder="Наприклад: 5000"
-            style="
-            width:100%;
-            padding:15px;
-            border-radius:10px;
-            border:1px solid #30394c;
-            background:#080b12;
-            color:white;
-            margin-bottom:15px;
-            "
-        >
-
-        <p style="margin-bottom:15px;">
-            Скільки робіт за годину?
-        </p>
-
-        <input
-            id="jobsCount"
-            type="number"
-            placeholder="Наприклад: 6"
-            style="
-            width:100%;
-            padding:15px;
-            border-radius:10px;
-            border:1px solid #30394c;
-            background:#080b12;
-            color:white;
-            margin-bottom:15px;
-            "
-        >
-
-        <button
-            onclick="calculate()"
-            class="button"
-            style="border:0; cursor:pointer;"
-        >
-            Розрахувати
-        </button>
-
-        <h2 id="result" style="margin-top:25px;">
-            Дохід: 0 грн/год
-        </h2>
-
-    </div>
-
-</section>
-
-<footer>
-    © 2026 MTA HUB — фанатський портал MTA:SA
-</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-function calculate() {
+const SUPABASE_URL = "ВСТАВ_ТУТ_PROJECT_URL";
 
-    let money =
-        Number(document.getElementById("money").value);
+const SUPABASE_KEY = "ВСТАВ_ТУТ_PUBLISHABLE_KEY";
 
-    let jobs =
-        Number(document.getElementById("jobsCount").value);
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
-    let result = money * jobs;
 
-    document.getElementById("result").innerText =
-        "Дохід: " + result.toLocaleString("uk-UA") + " грн/год";
+async function sendCode() {
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+    const message =
+        document.getElementById("message");
+
+    if (!phone) {
+        message.innerText =
+            "Введи номер телефону";
+        return;
+    }
+
+    message.innerText =
+        "Надсилаємо код...";
+
+    const { error } =
+        await supabaseClient.auth.signInWithOtp({
+            phone: phone
+        });
+
+    if (error) {
+
+        message.innerText =
+            "Помилка: " + error.message;
+
+        return;
+    }
+
+    document.getElementById("phoneStep")
+        .style.display = "none";
+
+    document.getElementById("codeStep")
+        .style.display = "block";
+
+    message.innerText =
+        "SMS-код надіслано 📱";
+}
+
+
+async function verifyCode() {
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+    const code =
+        document.getElementById("code").value.trim();
+
+    const message =
+        document.getElementById("message");
+
+    if (!code) {
+
+        message.innerText =
+            "Введи код із SMS";
+
+        return;
+    }
+
+    const { data, error } =
+        await supabaseClient.auth.verifyOtp({
+            phone: phone,
+            token: code,
+            type: "sms"
+        });
+
+    if (error) {
+
+        message.innerText =
+            "Невірний код";
+
+        return;
+    }
+
+    message.innerText =
+        "✅ Успішний вхід!";
+
+    setTimeout(() => {
+
+        window.location.href =
+            "profile.html";
+
+    }, 1000);
 }
 
 </script>
-
-</body>
-</html>
